@@ -1,0 +1,20 @@
+// Custom scrollbar
+@mixin custom-scrollbar($size: 8px, $bg-color: #eee, $thumb-color: #999) {
+	&::-webkit-scrollbar {
+		width: $size;
+		height: $size;
+
+		&-track,
+		&-thumb {
+			border-radius: 10px;
+		}
+
+		&-track {
+			background-color: $bg-color;
+		}
+
+		&-thumb {
+			background-color: $thumb-color;
+		}
+	}
+}

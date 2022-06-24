@@ -1,0 +1,11 @@
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes reveal {
+	to {
+		opacity: 1;
+	}
+}

@@ -1,0 +1,90 @@
+:root {
+	--primary-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	// --secondary-font: Calibri, Calibri-Fallback, Arial, sans-serif;
+
+	// Sizes
+
+	// Color scales
+	// ====================
+	// Primary
+	--primary: #cc0033;
+	--primary50: #fcf8f8;
+	--primary100: #f8c7c9;
+	--primary200: #e39bad;
+	--primary300: #f84663;
+	--primary400: #ff002c;
+	--primary500: #bb002f;
+	--primary600: #87001b;
+	--primary700: #590012;
+	--primary800: #40000d;
+	--primary900: #260008;
+	--primaryA: #111111;
+	--primaryB: #ffffff;
+
+	// Accent
+	--accent: #cc0033;
+	--accent50: #fcf8f8;
+	--accent100: #f8c7c9;
+	--accent200: #e39bad;
+	--accent300: #f84663;
+	--accent400: #ff002c;
+	--accent500: #ab0022;
+	--accent600: #87001b;
+	--accent700: #590012;
+	--accent800: #40000d;
+	--accent900: #260008;
+
+	// Mono
+	--white: #ffffff;
+	--black: #111111;
+	--mono100: #ffffff;
+	--mono200: #f5f5f5;
+	--mono300: #ededed;
+	--mono400: #e3e3e3;
+	--mono500: #cccccc;
+	--mono600: #b0b0b0;
+	--mono700: #757575;
+	--mono800: #545454;
+	--mono900: #333333;
+	--mono1000: #111111;
+	--transparent: rgba(#111111, 0%);
+
+	// Negative
+	--negative: #c70326;
+	--negative50: #fee3e4;
+	--negative100: #fbbdc0;
+	--negative200: #f5979e;
+	--negative300: #ed727e;
+	--negative400: #e34c5f;
+	--negative500: #d62642;
+	--negative600: #c70326;
+	--negative700: #9d0027;
+	--negative800: #6d0023;
+	--negative900: #390017;
+
+	// Warning
+	--warning: #ffaf38;
+	--warning50: #fff9f0;
+	--warning100: #ffefd6;
+	--warning200: #fad8a5;
+	--warning300: #fac069;
+	--warning400: #ffaf38;
+	--warning500: #c28526;
+	--warning600: #996920;
+	--warning700: #664615;
+	--warning800: #463410;
+	--warning900: #33230b;
+
+	// Positive
+	--positive: #0cca98;
+	--positive50: #eefbee;
+	--positive100: #c9f3cd;
+	--positive200: #a3ebb3;
+	--positive300: #7de2a1;
+	--positive400: #58da96;
+	--positive500: #32d293;
+	--positive600: #0cca98;
+	--positive700: #06ac80;
+	--positive800: #028d67;
+	--positive900: #006c4d;
+}
