@@ -1,32 +1,67 @@
 from typing import List, Union
 from models.expense import Expense
 from schemas.expense import ExpenseBase, ExpenseSchema
-from config.api import router
+from config.api import router, API_METHODS
 from shared import crud
 
 
 class ExpensesController:
-    @router.get("/expenses")
-    def get_expenses() -> List[ExpenseSchema]:
-        # Gets all expenses
+    """## The Expenses route controller"""
+
+    @router.get("/expenses", tags=[API_METHODS["GET"]])
+    def get_expenses(self) -> List[ExpenseSchema]:
+        """## Gets all expenses
+
+        Returns:
+            List[ExpenseSchema]: The expenses list
+        """
         return crud.get(Expense)
 
-    @router.get("/expenses/{id}")
-    def get_expense_by_id(id: int) -> Union[ExpenseSchema, None]:
-        # Gets an expense by ID
-        return crud.get_by_id(Expense, id)
+    @router.get("/expenses/{id}", tags=[API_METHODS["GET_BY_ID"]])
+    def get_expense_by_id(self, expense_id: int) -> Union[ExpenseSchema, None]:
+        """## Gets an expense by ID
 
-    @router.post("/expenses")
-    def create_expense(payload: ExpenseBase) -> ExpenseSchema:
-        # Creates an expense
+        Args:
+            expense_id (int): The expense ID
+
+        Returns:
+            Union[ExpenseSchema, None]: The expense
+        """
+        return crud.get_by_id(Expense, expense_id)
+
+    @router.post("/expenses", tags=[API_METHODS["CREATE"]])
+    def create_expense(self, payload: ExpenseBase) -> ExpenseSchema:
+        """## Creates an expense
+
+        Args:
+            payload (ExpenseBase): The expense payload
+
+        Returns:
+            ExpenseSchema: The created expense
+        """
         return crud.create(Expense, payload)
 
-    @router.put("/expenses/{id}")
-    def edit_expense(id: int, payload: ExpenseBase) -> ExpenseSchema:
-        # Edits an expense
-        return crud.edit(Expense, id, payload)
+    @router.put("/expenses/{id}", tags=[API_METHODS["UPDATE"]])
+    def edit_expense(self, expense_id: int, payload: ExpenseBase) -> ExpenseSchema:
+        """## Edits an expense
 
-    @router.delete("/expenses/{id}")
-    def delete_expense(id: int) -> ExpenseSchema:
-        # Deletes an expense
-        return crud.delete(Expense, id)
+        Args:
+            expense_id (int): The expense ID
+            payload (ExpenseBase): The expense payload
+
+        Returns:
+            ExpenseSchema: The edited expense
+        """
+        return crud.edit(Expense, expense_id, payload)
+
+    @router.delete("/expenses/{id}", tags=[API_METHODS["DELETE"]])
+    def delete_expense(self, expense_id: int) -> ExpenseSchema:
+        """## Deletes an expense
+
+        Args:
+            expense_id (int): The expense ID
+
+        Returns:
+            ExpenseSchema: The deleted expense
+        """
+        return crud.delete(Expense, expense_id)

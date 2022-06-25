@@ -9,7 +9,7 @@ Schema = TypeVar("Schema")
 
 
 def get(model: Model) -> List[Schema]:
-    """### Gets stored records of any given model
+    """## Gets stored records of any given model
 
     Args:
         model (Model): The model
@@ -20,12 +20,12 @@ def get(model: Model) -> List[Schema]:
     return session.query(model).all()
 
 
-def get_by_id(model: Model, id: int) -> Union[Schema, None]:
-    """### Gets any given model record by ID
+def get_by_id(model: Model, entity_id: int) -> Union[Schema, None]:
+    """## Gets any given model record by ID
 
     Args:
         model (Model): The model
-        id (int): The ID
+        entity_id (int): The entity ID
 
     Raises:
         HTTPException: The exception in case of not retrieving the record
@@ -33,7 +33,7 @@ def get_by_id(model: Model, id: int) -> Union[Schema, None]:
     Returns:
         Union[Schema, None]: The record
     """
-    element = session.query(model).get(id)
+    element = session.query(model).get(entity_id)
 
     if not element:
         raise HTTPException(f"Entity with ID: {id} was not found")
@@ -42,7 +42,7 @@ def get_by_id(model: Model, id: int) -> Union[Schema, None]:
 
 
 def create(model: Model, payload: ModelPayload) -> Schema:
-    """### Creates a record based on any given model
+    """## Creates a record based on any given model
 
     Args:
         model (Model): The model
@@ -62,12 +62,12 @@ def create(model: Model, payload: ModelPayload) -> Schema:
     return element
 
 
-def edit(model: Model, id: int, payload: ModelPayload) -> Schema:
-    """### Edits a record based on any given model
+def edit(model: Model, entity_id: int, payload: ModelPayload) -> Schema:
+    """## Edits a record based on any given model
 
     Args:
         model (Model): The model
-        id (int): The ID
+        entity_id (int): The entity ID
         payload (ModelPayload): The record's payload
 
     Raises:
@@ -76,10 +76,10 @@ def edit(model: Model, id: int, payload: ModelPayload) -> Schema:
     Returns:
         Schema: The edited record
     """
-    element = session.query(model).get(id)
+    element = session.query(model).get(entity_id)
 
     if not element:
-        raise HTTPException(f"Entity with ID: {id} was not found")
+        raise HTTPException(f"Entity with ID: {entity_id} was not found")
 
     for key, value in payload:
         setattr(element, key, value)
@@ -89,12 +89,12 @@ def edit(model: Model, id: int, payload: ModelPayload) -> Schema:
     return element
 
 
-def delete(model: Model, id: int) -> Schema:
-    """### Deletes a record based on any given model
+def delete(model: Model, entity_id: int) -> Schema:
+    """## Deletes a record based on any given model
 
     Args:
         model (Model): The model
-        id (int): The ID
+        entity_id (int): The entity ID
 
     Raises:
         HTTPException: The exception in case of not deleting the record
@@ -102,10 +102,10 @@ def delete(model: Model, id: int) -> Schema:
     Returns:
         Schema: The deleted record
     """
-    element = session.query(model).get(id)
+    element = session.query(model).get(entity_id)
 
     if not element:
-        raise HTTPException(f"Entity with ID: {id} was not found")
+        raise HTTPException(f"Entity with ID: {entity_id} was not found")
 
     session.delete(element)
     session.commit()

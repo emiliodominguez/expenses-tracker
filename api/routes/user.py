@@ -1,32 +1,67 @@
 from typing import List, Union
 from models.user import User
 from schemas.user import UserBase, UserSchema
-from config.api import router
+from config.api import router, API_METHODS
 from shared import crud
 
 
 class UsersController:
-    @router.get("/users")
-    def get_users() -> List[UserSchema]:
-        # Gets all users
+    """## The Users route controller"""
+
+    @router.get("/users", tags=[API_METHODS["GET"]])
+    def get_users(self) -> List[UserSchema]:
+        """## Gets all users
+
+        Returns:
+            List[UserSchema]: The list of users
+        """
         return crud.get(User)
 
-    @router.get("/users/{id}")
-    def get_user_by_id(id: int) -> Union[UserSchema, None]:
-        # Gets a user by ID
-        return crud.get_by_id(User, id)
+    @router.get("/users/{id}", tags=[API_METHODS["GET_BY_ID"]])
+    def get_user_by_id(self, user_id: int) -> Union[UserSchema, None]:
+        """## Gets a user by ID
 
-    @router.post("/users")
-    def create_user(payload: UserBase) -> UserSchema:
-        # Creates a user
+        Args:
+            user_id (int): The user ID
+
+        Returns:
+            Union[UserSchema, None]: The user
+        """
+        return crud.get_by_id(User, user_id)
+
+    @router.post("/users", tags=[API_METHODS["CREATE"]])
+    def create_user(self, payload: UserBase) -> UserSchema:
+        """## Creates a user
+
+        Args:
+            payload (UserBase): The user payload
+
+        Returns:
+            UserSchema: The created user
+        """
         return crud.create(User, payload)
 
-    @router.put("/users/{id}")
-    def edit_user(id: int, payload: UserBase) -> UserSchema:
-        # Edits a user
-        return crud.edit(User, id, payload)
+    @router.put("/users/{id}", tags=[API_METHODS["UPDATE"]])
+    def edit_user(self, user_id: int, payload: UserBase) -> UserSchema:
+        """## Edits a user
 
-    @router.delete("/users/{id}")
-    def delete_user(id: int) -> UserSchema:
-        # Deletes a user
-        return crud.delete(User, id)
+        Args:
+            user_id (int): The user ID
+            payload (UserBase): The user payload
+
+        Returns:
+            UserSchema: The edited user
+        """
+        return crud.edit(User, user_id, payload)
+
+    @router.delete("/users/{id}", tags=[API_METHODS["DELETE"]])
+    def delete_user(self, user_id: int) -> UserSchema:
+        """## Deletes a user
+
+        Args:
+            user_id (int): The user ID
+
+        Returns:
+            UserSchema: The deleted user
+        """
+        return crud.delete(User, user_id)
