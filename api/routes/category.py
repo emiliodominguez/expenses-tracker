@@ -2,31 +2,31 @@ from typing import List, Union
 from models.category import Category
 from schemas.category import CategoryBase, CategorySchema
 from config.api import router
-from shared.crud import CRUD
+from shared import crud
 
 
-class CategorysController:
-    @router.get("/categorys")
-    def get_categorys() -> List[CategorySchema]:
+class CategoriesController:
+    @router.get("/categories")
+    def get_categories() -> List[CategorySchema]:
         # Gets all categorys
-        return CRUD.get(Category)
+        return crud.get(Category)
 
-    @router.get("/categorys/{id}")
+    @router.get("/categories/{id}")
     def get_category_by_id(id: int) -> Union[CategorySchema, None]:
         # Gets a category by ID
-        return CRUD.get_by_id(Category, id)
+        return crud.get_by_id(Category, id)
 
-    @router.post("/categorys")
+    @router.post("/categories")
     def create_category(payload: CategoryBase) -> CategorySchema:
         # Creates a category
-        return CRUD.create(Category, payload)
+        return crud.create(Category, payload)
 
-    @router.put("/categorys/{id}")
+    @router.put("/categories/{id}")
     def edit_category(id: int, payload: CategoryBase) -> CategorySchema:
         # Edits a category
-        return CRUD.edit(Category, id, payload)
+        return crud.edit(Category, id, payload)
 
-    @router.delete("/categorys/{id}")
+    @router.delete("/categories/{id}")
     def delete_category(id: int) -> CategorySchema:
         # Deletes a category
-        return CRUD.delete(Category, id)
+        return crud.delete(Category, id)
