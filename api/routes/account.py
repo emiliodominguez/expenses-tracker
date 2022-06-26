@@ -8,14 +8,17 @@ from shared import crud
 class AccountsController:
     """The Accounts route controller"""
 
-    @router.get("/accounts", tags=[API_METHODS["GET"]])
-    def get_accounts() -> List[AccountSchema]:
-        """## Gets all accounts
+    @router.get("/accounts/{user_id}", tags=[API_METHODS["GET"]])
+    def get_accounts(user_id: int) -> List[AccountSchema]:
+        """## Gets all user accounts
+
+        Args:
+            user_id (int): The user ID
 
         Returns:
             List[AccountSchema]: The accounts list
         """
-        return crud.get(Account)
+        return crud.get_many_filtered(Account, Account.user_id == user_id)
 
     @router.get("/accounts/{account_id}", tags=[API_METHODS["GET_BY_ID"]])
     def get_account_by_id(account_id: int) -> Union[AccountSchema, None]:
@@ -27,7 +30,7 @@ class AccountsController:
         Returns:
             Union[AccountSchema, None]: The account
         """
-        return crud.get_by_id(Account, account_id)
+        return crud.get_one_by_id(Account, account_id)
 
     @router.post("/accounts", tags=[API_METHODS["CREATE"]])
     def create_account(payload: AccountBase) -> AccountSchema:

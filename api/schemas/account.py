@@ -8,11 +8,11 @@ class AccountBase(BaseModel):
     type: str
     active: bool
     note: str = ""
+    user_id: int
 
 
 class AccountSchema(AccountBase):
     id: int
-    user_id: int
 
     class Config:
         orm_mode = True

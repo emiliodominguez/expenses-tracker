@@ -3,8 +3,8 @@ from sqlalchemy.orm import relationship
 from config.db import Base
 
 
-class Expense(Base):
-    __tablename__ = "expenses"
+class Movement(Base):
+    __tablename__ = "movements"
 
     id = Column(Integer, primary_key=True, index=True)
     type = Column(String)

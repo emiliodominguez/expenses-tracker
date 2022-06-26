@@ -15,7 +15,7 @@ class UsersController:
         Returns:
             List[UserSchema]: The list of users
         """
-        return crud.get(User)
+        return crud.get_many(User)
 
     @router.get("/users/{user_id}", tags=[API_METHODS["GET_BY_ID"]])
     def get_user_by_id(user_id: int) -> Union[UserSchema, None]:
@@ -27,7 +27,7 @@ class UsersController:
         Returns:
             Union[UserSchema, None]: The user
         """
-        return crud.get_by_id(User, user_id)
+        return crud.get_one_by_id(User, user_id)
 
     @router.post("/users", tags=[API_METHODS["CREATE"]])
     def create_user(payload: UserBase) -> UserSchema:

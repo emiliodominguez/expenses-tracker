@@ -8,7 +8,7 @@ ModelPayload = TypeVar("ModelPayload")
 Schema = TypeVar("Schema")
 
 
-def get(model: Model) -> List[Schema]:
+def get_many(model: Model) -> List[Schema]:
     """## Gets stored records of any given model
 
     Args:
@@ -20,7 +20,20 @@ def get(model: Model) -> List[Schema]:
     return session.query(model).all()
 
 
-def get_by_id(model: Model, entity_id: int) -> Union[Schema, None]:
+def get_many_filtered(model: Model, condition: bool) -> List[Schema]:
+    """## Gets filtered records of any given model
+
+    Args:
+        model (Model): The model
+        condition (bool): The filter condition
+
+    Returns:
+        List[Schema]: The records list
+    """
+    return session.query(model).filter(condition).all()
+
+
+def get_one_by_id(model: Model, entity_id: int) -> Union[Schema, None]:
     """## Gets any given model record by ID
 
     Args:

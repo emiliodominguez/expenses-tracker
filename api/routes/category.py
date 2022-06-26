@@ -15,7 +15,7 @@ class CategoriesController:
         Returns:
             List[CategorySchema]: The categories list
         """
-        return crud.get(Category)
+        return crud.get_many(Category)
 
     @router.get("/categories/{category_id}", tags=[API_METHODS["GET_BY_ID"]])
     def get_category_by_id(category_id: int) -> Union[CategorySchema, None]:
@@ -27,7 +27,7 @@ class CategoriesController:
         Returns:
             Union[CategorySchema, None]: The category
         """
-        return crud.get_by_id(Category, category_id)
+        return crud.get_one_by_id(Category, category_id)
 
     @router.post("/categories", tags=[API_METHODS["CREATE"]])
     def create_category(payload: CategoryBase) -> CategorySchema:

@@ -8,11 +8,11 @@ class CardBase(BaseModel):
     number: str
     type: int
     expiration_date: date
+    user_id: int
 
 
 class CardSchema(CardBase):
     id: int
-    user_id: int
 
     class Config:
         orm_mode = True

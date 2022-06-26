@@ -1,4 +1,4 @@
-from routes import user, account, card, category, expense
+from routes import user, account, card, category, movement
 
 
 def set_routes() -> None:
@@ -7,5 +7,5 @@ def set_routes() -> None:
     account.AccountsController()
     card.CardsController()
     category.CategoriesController()
-    expense.ExpensesController()
+    movement.MovementsController()
     print("🚀   Routes initialized")

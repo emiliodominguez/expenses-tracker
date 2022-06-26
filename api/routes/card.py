@@ -8,14 +8,14 @@ from shared import crud
 class CardsController:
     """The Cards route controller"""
 
-    @router.get("/cards", tags=[API_METHODS["GET"]])
-    def get_cards() -> List[CardSchema]:
-        """## Gets all cards
+    @router.get("/cards/{user_id}", tags=[API_METHODS["GET"]])
+    def get_cards(user_id: int) -> List[CardSchema]:
+        """## Gets all user cards
 
-        Returns:
-            List[CardSchema]: The cards list
+        Args:
+            user_id (int): The user ID
         """
-        return crud.get(Card)
+        return crud.get_many_filtered(Card, Card.user_id == user_id)
 
     @router.get("/cards/{card_id}", tags=[API_METHODS["GET_BY_ID"]])
     def get_card_by_id(card_id: int) -> Union[CardSchema, None]:
@@ -27,7 +27,7 @@ class CardsController:
         Returns:
             Union[CardSchema, None]: The card
         """
-        return crud.get_by_id(Card, card_id)
+        return crud.get_one_by_id(Card, card_id)
 
     @router.post("/cards", tags=[API_METHODS["CREATE"]])
     def create_card(payload: CardBase) -> CardSchema:
