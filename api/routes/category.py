@@ -17,7 +17,7 @@ class CategoriesController:
         """
         return crud.get(Category)
 
-    @router.get("/categories/{id}", tags=[API_METHODS["GET_BY_ID"]])
+    @router.get("/categories/{category_id}", tags=[API_METHODS["GET_BY_ID"]])
     def get_category_by_id(category_id: int) -> Union[CategorySchema, None]:
         """## Gets a category by ID
 
@@ -41,7 +41,7 @@ class CategoriesController:
         """
         return crud.create(Category, payload)
 
-    @router.put("/categories/{id}", tags=[API_METHODS["UPDATE"]])
+    @router.put("/categories/{category_id}", tags=[API_METHODS["UPDATE"]])
     def edit_category(category_id: int, payload: CategoryBase) -> CategorySchema:
         """## Edits a category
 
@@ -54,7 +54,7 @@ class CategoriesController:
         """
         return crud.edit(Category, category_id, payload)
 
-    @router.delete("/categories/{id}", tags=[API_METHODS["DELETE"]])
+    @router.delete("/categories/{category_id}", tags=[API_METHODS["DELETE"]])
     def delete_category(category_id: int) -> CategorySchema:
         """## Deletes a category
 

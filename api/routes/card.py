@@ -17,7 +17,7 @@ class CardsController:
         """
         return crud.get(Card)
 
-    @router.get("/cards/{id}", tags=[API_METHODS["GET_BY_ID"]])
+    @router.get("/cards/{card_id}", tags=[API_METHODS["GET_BY_ID"]])
     def get_card_by_id(card_id: int) -> Union[CardSchema, None]:
         """## Gets an card by ID
 
@@ -41,7 +41,7 @@ class CardsController:
         """
         return crud.create(Card, payload)
 
-    @router.put("/cards/{id}", tags=[API_METHODS["UPDATE"]])
+    @router.put("/cards/{card_id}", tags=[API_METHODS["UPDATE"]])
     def edit_card(card_id: int, payload: CardBase) -> CardSchema:
         """## Edits an card
 
@@ -54,7 +54,7 @@ class CardsController:
         """
         return crud.edit(Card, card_id, payload)
 
-    @router.delete("/cards/{id}", tags=[API_METHODS["DELETE"]])
+    @router.delete("/cards/{card_id}", tags=[API_METHODS["DELETE"]])
     def delete_card(card_id: int) -> CardSchema:
         """## Deletes an card
 

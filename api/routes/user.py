@@ -17,7 +17,7 @@ class UsersController:
         """
         return crud.get(User)
 
-    @router.get("/users/{id}", tags=[API_METHODS["GET_BY_ID"]])
+    @router.get("/users/{user_id}", tags=[API_METHODS["GET_BY_ID"]])
     def get_user_by_id(user_id: int) -> Union[UserSchema, None]:
         """## Gets a user by ID
 
@@ -41,7 +41,7 @@ class UsersController:
         """
         return crud.create(User, payload)
 
-    @router.put("/users/{id}", tags=[API_METHODS["UPDATE"]])
+    @router.put("/users/{user_id}", tags=[API_METHODS["UPDATE"]])
     def edit_user(user_id: int, payload: UserBase) -> UserSchema:
         """## Edits a user
 
@@ -54,7 +54,7 @@ class UsersController:
         """
         return crud.edit(User, user_id, payload)
 
-    @router.delete("/users/{id}", tags=[API_METHODS["DELETE"]])
+    @router.delete("/users/{user_id}", tags=[API_METHODS["DELETE"]])
     def delete_user(user_id: int) -> UserSchema:
         """## Deletes a user
 
