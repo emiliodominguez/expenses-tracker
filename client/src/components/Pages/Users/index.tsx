@@ -1,13 +1,16 @@
 import { FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useUsersContext } from '@app/contexts';
+import { routes } from '@app/config';
+import { IUser } from '@app/models';
 import Layout from '@app/components/Layout';
 import { Spinner, Modal, Icon, Input, Button, useModal } from '@app/components/Shared';
-import { IUser } from '@app/models';
 import styles from './Users.module.scss';
 
 export function Users(): JSX.Element {
 	const { users, loading, setCurrentUser, createUser, updateUser, deleteUser } = useUsersContext();
 	const { modalProps, openModal, closeModal } = useModal<{ user?: IUser }>();
+	const navigate = useNavigate();
 
 	function handleFormSubmit(e: FormEvent): void {
 		e.preventDefault();
@@ -38,7 +41,13 @@ export function Users(): JSX.Element {
 			{!loading && users && (
 				<ul className={styles.users}>
 					{users.map(user => (
-						<li key={user.name} className={styles.user} onClick={() => setCurrentUser(user)}>
+						<li
+							key={user.name}
+							className={styles.user}
+							onClick={() => {
+								setCurrentUser(user);
+								navigate(routes.movements.url);
+							}}>
 							<p className={styles.initials} data-initials={user.name[0]} />
 							<p className={styles.name}>{user.name}</p>
 							<div className={styles.userActions}>

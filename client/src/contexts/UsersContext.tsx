@@ -57,6 +57,7 @@ export function UsersContextProvider(props: PropsWithChildren<{}>): JSX.Element 
 	async function deleteUser(id: number): Promise<IUser> {
 		const deletedUser = await usersService.delete(id);
 		getUsers();
+		if (id === currentUser?.id) setCurrentUser(null);
 		return deletedUser;
 	}
 
@@ -75,9 +76,9 @@ export function UsersContextProvider(props: PropsWithChildren<{}>): JSX.Element 
 	}, []);
 
 	useEffect(() => {
-		navigate(currentUser ? routes.movements.url : routes.users.url);
+		if (!currentUser) navigate(routes.users.url);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [currentUser]);
+	}, [currentUser, navigate]);
 
 	return (
 		<UsersContext.Provider
