@@ -26,7 +26,7 @@ export default class UsersService {
 	 * @returns The user
 	 */
 	async getById(id: number, abortSignal?: AbortSignal): Promise<IUser> {
-		return await this.httpService.get<IUser>({ url: `${this.apiUrl}/${id}?user_id=${id}`, abortSignal });
+		return await this.httpService.get<IUser>({ url: `${this.apiUrl}/${id}`, abortSignal });
 	}
 
 	/**
@@ -47,7 +47,7 @@ export default class UsersService {
 	 * @returns The updated user
 	 */
 	async update(id: number, payload: Partial<TUserPayload>, abortSignal?: AbortSignal): Promise<IUser> {
-		return await this.httpService.put<IUser, Partial<TUserPayload>>({ url: `${this.apiUrl}/${id}?user_id=${id}`, payload, abortSignal });
+		return await this.httpService.put<IUser, Partial<TUserPayload>>({ url: `${this.apiUrl}/${id}`, payload, abortSignal });
 	}
 
 	/**
@@ -57,6 +57,6 @@ export default class UsersService {
 	 * @returns The deleted user
 	 */
 	async delete(id: number, abortSignal?: AbortSignal): Promise<IUser> {
-		return await this.httpService.delete<IUser>({ url: `${this.apiUrl}/${id}?user_id=${id}`, abortSignal });
+		return await this.httpService.delete<IUser>({ url: `${this.apiUrl}/${id}`, abortSignal });
 	}
 }
