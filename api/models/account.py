@@ -8,7 +8,7 @@ class Account(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String)
-    amount = Column(Integer)
+    balance = Column(Integer)
     currency = Column(String)
     type = Column(String)
     active = Column(Boolean)

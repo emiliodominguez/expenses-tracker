@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 class AccountBase(BaseModel):
     name: str
-    amount: int
+    balance: int
     currency: str
     type: str
     active: bool
