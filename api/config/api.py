@@ -1,5 +1,12 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi_utils.inferring_router import InferringRouter
+
+API_ORIGINS = [
+    "http://localhost",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
 
 
 API_METHODS = {
@@ -34,6 +41,14 @@ TAGS_METADATA = [
 ]
 
 _app = FastAPI(openapi_tags=TAGS_METADATA)
+_app.add_middleware(
+    CORSMiddleware,
+    allow_origins=API_ORIGINS,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 router = InferringRouter()
 
 
