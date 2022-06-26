@@ -13,6 +13,8 @@ interface IUsersContext {
 	error?: Error;
 	setCurrentUser: (user: IUser) => void;
 	createUser: (payload: TUserPayload) => Promise<IUser>;
+	updateUser: (id: number, payload: TUserPayload) => Promise<IUser>;
+	deleteUser: (id: number) => Promise<IUser>;
 }
 
 const UsersContext = createContext<IUsersContext>({} as IUsersContext);
@@ -46,6 +48,18 @@ export function UsersContextProvider(props: PropsWithChildren<{}>): JSX.Element 
 		return createdUser;
 	}
 
+	async function updateUser(id: number, payload: TUserPayload): Promise<IUser> {
+		const updatedUser = await usersService.update(id, payload);
+		getUsers();
+		return updatedUser;
+	}
+
+	async function deleteUser(id: number): Promise<IUser> {
+		const deletedUser = await usersService.delete(id);
+		getUsers();
+		return deletedUser;
+	}
+
 	useEffect(() => {
 		let abortController: AbortController;
 
@@ -72,7 +86,9 @@ export function UsersContextProvider(props: PropsWithChildren<{}>): JSX.Element 
 				error: usersData.error,
 				currentUser,
 				setCurrentUser,
-				createUser
+				createUser,
+				updateUser,
+				deleteUser
 			}}>
 			{props.children}
 		</UsersContext.Provider>

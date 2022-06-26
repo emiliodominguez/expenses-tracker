@@ -1,23 +1,43 @@
 @use '@app/styles/variables';
+@use '@app/styles/shared';
 
 :global(.dark-theme) {
 	.users {
-		button {
+		li {
 			background-color: var(--mono900);
 			color: var(--mono200);
 
 			&:hover {
 				color: var(--mono200);
+
+				.userActions {
+					button:not(:hover) {
+						svg path {
+							fill: var(--mono400);
+						}
+					}
+				}
 			}
 		}
 
 		.initials {
 			&::before {
 				background-color: var(--primary);
+				border-color: var(--mono600);
 			}
 
 			&::after {
 				color: var(--mono200);
+			}
+		}
+
+		.userActions {
+			button {
+				&:hover {
+					svg path {
+						fill: var(--mono100);
+					}
+				}
 			}
 		}
 
@@ -50,36 +70,54 @@
 
 	width: 100%;
 	max-width: $btn-size * 4;
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax($btn-size, 1fr));
-	grid-auto-rows: $btn-size;
-	grid-gap: variables.size(m);
+	list-style: none;
 	padding-bottom: var(--header-height);
 
-	button {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax($btn-size, 1fr));
+	grid-gap: variables.size(m);
+
+	li {
 		width: 100%;
-		height: 100%;
-		font-size: variables.size(m);
-		border: none;
-		border-radius: variables.size(s);
+		min-height: $btn-size;
 		background-color: var(--primary);
-		color: var(--mono200);
+		border-radius: variables.size(s);
+		padding: variables.size(l);
 		box-shadow: variables.shadow(400), variables.shadow(400);
 		transition: background-color ease 250ms, color ease 250ms;
+		cursor: pointer;
+
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.user {
+		font-size: variables.size(m);
+		color: var(--mono200);
+		text-align: center;
 		overflow: hidden;
 		z-index: variables.z-index(basic);
-		cursor: pointer;
 
 		&:hover {
 			color: var(--mono1000);
 
 			.initials {
 				&::before {
-					transform: translate(-50%, -50%) scale(5);
+					transform: translate(-50%, -50%) scale(8);
 				}
 
 				&::after {
 					transform: translate(-50%, -50%) scale(2);
+				}
+			}
+
+			.userActions {
+				button:not(:hover) {
+					svg path {
+						fill: var(--mono600);
+					}
 				}
 			}
 		}
@@ -104,8 +142,9 @@
 			width: 100%;
 			height: 100%;
 			border-radius: 50%;
+			border: 2px solid var(--mono600);
 			background-color: var(--mono200);
-			transition: transform ease 400ms, background-color ease 250ms;
+			transition: transform ease 500ms, background-color ease 250ms, border-color ease 250ms;
 			z-index: -1;
 		}
 
@@ -122,7 +161,42 @@
 		}
 	}
 
+	.userActions,
 	.addUserBtn {
+		svg path {
+			transition: fill ease 250ms;
+		}
+	}
+
+	.userActions {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: variables.size(m);
+		margin-top: variables.size(l);
+		z-index: variables.z-index(low);
+
+		button {
+			@include shared.increase-clickable-area;
+			@extend %btn-reset;
+
+			&:hover {
+				svg path {
+					fill: var(--primary);
+				}
+			}
+		}
+
+		svg {
+			path {
+				fill: var(--mono300);
+			}
+		}
+	}
+
+	.addUserBtn {
+		height: 100%;
+
 		&:hover {
 			svg {
 				transform: scale(1.5) rotate(90deg);
@@ -135,7 +209,6 @@
 
 			path {
 				fill: var(--mono200);
-				transition: fill ease 250ms;
 			}
 		}
 	}
