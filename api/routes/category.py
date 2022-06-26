@@ -9,7 +9,7 @@ class CategoriesController:
     """## The Categories route controller"""
 
     @router.get("/categories", tags=[API_METHODS["GET"]])
-    def get_categories(self) -> List[CategorySchema]:
+    def get_categories() -> List[CategorySchema]:
         """## Gets all categories
 
         Returns:
@@ -18,7 +18,7 @@ class CategoriesController:
         return crud.get(Category)
 
     @router.get("/categories/{id}", tags=[API_METHODS["GET_BY_ID"]])
-    def get_category_by_id(self, category_id: int) -> Union[CategorySchema, None]:
+    def get_category_by_id(category_id: int) -> Union[CategorySchema, None]:
         """## Gets a category by ID
 
         Args:
@@ -30,7 +30,7 @@ class CategoriesController:
         return crud.get_by_id(Category, category_id)
 
     @router.post("/categories", tags=[API_METHODS["CREATE"]])
-    def create_category(self, payload: CategoryBase) -> CategorySchema:
+    def create_category(payload: CategoryBase) -> CategorySchema:
         """## Creates a category
 
         Args:
@@ -42,7 +42,7 @@ class CategoriesController:
         return crud.create(Category, payload)
 
     @router.put("/categories/{id}", tags=[API_METHODS["UPDATE"]])
-    def edit_category(self, category_id: int, payload: CategoryBase) -> CategorySchema:
+    def edit_category(category_id: int, payload: CategoryBase) -> CategorySchema:
         """## Edits a category
 
         Args:
@@ -55,7 +55,7 @@ class CategoriesController:
         return crud.edit(Category, category_id, payload)
 
     @router.delete("/categories/{id}", tags=[API_METHODS["DELETE"]])
-    def delete_category(self, category_id: int) -> CategorySchema:
+    def delete_category(category_id: int) -> CategorySchema:
         """## Deletes a category
 
         Args:

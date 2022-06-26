@@ -9,7 +9,7 @@ class CardsController:
     """The Cards route controller"""
 
     @router.get("/cards", tags=[API_METHODS["GET"]])
-    def get_cards(self) -> List[CardSchema]:
+    def get_cards() -> List[CardSchema]:
         """## Gets all cards
 
         Returns:
@@ -18,7 +18,7 @@ class CardsController:
         return crud.get(Card)
 
     @router.get("/cards/{id}", tags=[API_METHODS["GET_BY_ID"]])
-    def get_card_by_id(self, card_id: int) -> Union[CardSchema, None]:
+    def get_card_by_id(card_id: int) -> Union[CardSchema, None]:
         """## Gets an card by ID
 
         Args:
@@ -30,7 +30,7 @@ class CardsController:
         return crud.get_by_id(Card, card_id)
 
     @router.post("/cards", tags=[API_METHODS["CREATE"]])
-    def create_card(self, payload: CardBase) -> CardSchema:
+    def create_card(payload: CardBase) -> CardSchema:
         """## Creates an card
 
         Args:
@@ -42,7 +42,7 @@ class CardsController:
         return crud.create(Card, payload)
 
     @router.put("/cards/{id}", tags=[API_METHODS["UPDATE"]])
-    def edit_card(self, card_id: int, payload: CardBase) -> CardSchema:
+    def edit_card(card_id: int, payload: CardBase) -> CardSchema:
         """## Edits an card
 
         Args:
@@ -55,7 +55,7 @@ class CardsController:
         return crud.edit(Card, card_id, payload)
 
     @router.delete("/cards/{id}", tags=[API_METHODS["DELETE"]])
-    def delete_card(self, card_id: int) -> CardSchema:
+    def delete_card(card_id: int) -> CardSchema:
         """## Deletes an card
 
         Args:

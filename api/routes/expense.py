@@ -9,7 +9,7 @@ class ExpensesController:
     """## The Expenses route controller"""
 
     @router.get("/expenses", tags=[API_METHODS["GET"]])
-    def get_expenses(self) -> List[ExpenseSchema]:
+    def get_expenses() -> List[ExpenseSchema]:
         """## Gets all expenses
 
         Returns:
@@ -18,7 +18,7 @@ class ExpensesController:
         return crud.get(Expense)
 
     @router.get("/expenses/{id}", tags=[API_METHODS["GET_BY_ID"]])
-    def get_expense_by_id(self, expense_id: int) -> Union[ExpenseSchema, None]:
+    def get_expense_by_id(expense_id: int) -> Union[ExpenseSchema, None]:
         """## Gets an expense by ID
 
         Args:
@@ -30,7 +30,7 @@ class ExpensesController:
         return crud.get_by_id(Expense, expense_id)
 
     @router.post("/expenses", tags=[API_METHODS["CREATE"]])
-    def create_expense(self, payload: ExpenseBase) -> ExpenseSchema:
+    def create_expense(payload: ExpenseBase) -> ExpenseSchema:
         """## Creates an expense
 
         Args:
@@ -42,7 +42,7 @@ class ExpensesController:
         return crud.create(Expense, payload)
 
     @router.put("/expenses/{id}", tags=[API_METHODS["UPDATE"]])
-    def edit_expense(self, expense_id: int, payload: ExpenseBase) -> ExpenseSchema:
+    def edit_expense(expense_id: int, payload: ExpenseBase) -> ExpenseSchema:
         """## Edits an expense
 
         Args:
@@ -55,7 +55,7 @@ class ExpensesController:
         return crud.edit(Expense, expense_id, payload)
 
     @router.delete("/expenses/{id}", tags=[API_METHODS["DELETE"]])
-    def delete_expense(self, expense_id: int) -> ExpenseSchema:
+    def delete_expense(expense_id: int) -> ExpenseSchema:
         """## Deletes an expense
 
         Args:

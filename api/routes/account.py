@@ -9,7 +9,7 @@ class AccountsController:
     """The Accounts route controller"""
 
     @router.get("/accounts", tags=[API_METHODS["GET"]])
-    def get_accounts(self) -> List[AccountSchema]:
+    def get_accounts() -> List[AccountSchema]:
         """## Gets all accounts
 
         Returns:
@@ -18,7 +18,7 @@ class AccountsController:
         return crud.get(Account)
 
     @router.get("/accounts/{id}", tags=[API_METHODS["GET_BY_ID"]])
-    def get_account_by_id(self, account_id: int) -> Union[AccountSchema, None]:
+    def get_account_by_id(account_id: int) -> Union[AccountSchema, None]:
         """## Gets an account by ID
 
         Args:
@@ -30,7 +30,7 @@ class AccountsController:
         return crud.get_by_id(Account, account_id)
 
     @router.post("/accounts", tags=[API_METHODS["CREATE"]])
-    def create_account(self, payload: AccountBase) -> AccountSchema:
+    def create_account(payload: AccountBase) -> AccountSchema:
         """## Creates an account
 
         Args:
@@ -42,7 +42,7 @@ class AccountsController:
         return crud.create(Account, payload)
 
     @router.put("/accounts/{id}", tags=[API_METHODS["UPDATE"]])
-    def edit_account(self, account_id: int, payload: AccountBase) -> AccountSchema:
+    def edit_account(account_id: int, payload: AccountBase) -> AccountSchema:
         """## Edits an account
 
         Args:
@@ -55,7 +55,7 @@ class AccountsController:
         return crud.edit(Account, account_id, payload)
 
     @router.delete("/accounts/{id}", tags=[API_METHODS["DELETE"]])
-    def delete_account(self, account_id: int) -> AccountSchema:
+    def delete_account(account_id: int) -> AccountSchema:
         """## Deletes an account
 
         Args:
