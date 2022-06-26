@@ -20,8 +20,14 @@ export function Card(props: ICardProps): JSX.Element {
 	}
 
 	function handlePointerMove(e: PointerEvent): void {
-		cardRef.current?.style.setProperty('--mouse-position-x', `${e.clientX}px`);
-		cardRef.current?.style.setProperty('--mouse-position-y', `${e.clientY}px`);
+		if (!cardRef.current) return;
+
+		const card = cardRef.current;
+		const cardRect = card.getBoundingClientRect();
+		const mouseX = e.clientX - cardRect.left;
+		const mouseY = e.clientY - cardRect.top;
+		card.style.setProperty('--mouse-position-x', `${(mouseX / card.clientWidth) * 100}%`);
+		card.style.setProperty('--mouse-position-y', `${(mouseY / card.clientHeight) * 100}%`);
 	}
 
 	useEventListener('pointermove', handlePointerMove);
