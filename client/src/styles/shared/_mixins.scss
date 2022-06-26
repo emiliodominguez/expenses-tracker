@@ -1,13 +1,8 @@
 // Custom scrollbar
-@mixin custom-scrollbar($size: 8px, $bg-color: #eee, $thumb-color: #999) {
+@mixin custom-scrollbar($size: 8px, $bg-color: var(--mono400), $thumb-color: var(--mono800)) {
 	&::-webkit-scrollbar {
 		width: $size;
 		height: $size;
-
-		&-track,
-		&-thumb {
-			border-radius: 10px;
-		}
 
 		&-track {
 			background-color: $bg-color;
@@ -16,5 +11,21 @@
 		&-thumb {
 			background-color: $thumb-color;
 		}
+	}
+}
+
+// Clickable area increaser
+@mixin increase-clickable-area($size: 40px) {
+	position: relative;
+
+	&::after {
+		content: '';
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: $size;
+		height: $size;
+		transform: translate(-50%, -50%);
+		cursor: pointer;
 	}
 }

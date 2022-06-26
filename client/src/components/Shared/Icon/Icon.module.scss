@@ -1,0 +1,18 @@
+.icon {
+	align-items: center;
+
+	&,
+	svg {
+		display: block;
+	}
+
+	&.colored {
+		svg path {
+			fill: var(--icon-color);
+		}
+	}
+
+	svg {
+		height: var(--icon-size, 16px);
+	}
+}

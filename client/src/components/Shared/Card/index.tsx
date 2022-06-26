@@ -1,7 +1,7 @@
 import { useMemo, useRef } from 'react';
 import { className, getCardBrand } from '@app/shared/helpers';
+import { useEventListener } from '@app/hooks';
 import styles from './Card.module.scss';
-import useEventListener from '@app/hooks/useEventListener';
 
 interface ICardProps {
 	cardNumber?: number;

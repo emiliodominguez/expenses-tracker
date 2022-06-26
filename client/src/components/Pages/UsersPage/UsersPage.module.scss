@@ -1,0 +1,169 @@
+@use '@app/styles/variables';
+
+:global(.dark-theme) {
+	.users {
+		button {
+			background-color: var(--mono900);
+			color: var(--mono200);
+
+			&:hover {
+				color: var(--mono200);
+			}
+		}
+
+		.initials {
+			&::before {
+				background-color: var(--primary);
+			}
+
+			&::after {
+				color: var(--mono200);
+			}
+		}
+
+		.addUserBtn {
+			svg path {
+				fill: var(--mono300);
+			}
+		}
+	}
+}
+
+.usersPage {
+	display: flex;
+}
+
+.spinner,
+.users {
+	margin: auto;
+}
+
+.spinner {
+	position: relative;
+	bottom: var(--header-height);
+}
+
+.users {
+	$btn-size: 150px;
+	$initials-size: 65px;
+	$initials-font-size: 35px;
+
+	width: 100%;
+	max-width: $btn-size * 4;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax($btn-size, 1fr));
+	grid-auto-rows: $btn-size;
+	grid-gap: variables.size(m);
+	padding-bottom: var(--header-height);
+
+	button {
+		width: 100%;
+		height: 100%;
+		font-size: variables.size(m);
+		border: none;
+		border-radius: variables.size(s);
+		background-color: var(--primary);
+		color: var(--mono200);
+		box-shadow: variables.shadow(400), variables.shadow(400);
+		transition: background-color ease 250ms, color ease 250ms;
+		overflow: hidden;
+		z-index: variables.z-index(basic);
+		cursor: pointer;
+
+		&:hover {
+			color: var(--mono1000);
+
+			.initials {
+				&::before {
+					transform: translate(-50%, -50%) scale(5);
+				}
+
+				&::after {
+					transform: translate(-50%, -50%) scale(2);
+				}
+			}
+		}
+	}
+
+	.initials {
+		position: relative;
+		width: $initials-size;
+		height: $initials-size;
+		margin: 0 auto variables.size(m);
+
+		&::before,
+		&::after {
+			position: absolute;
+			transform: translate(-50%, -50%);
+		}
+
+		&::before {
+			content: '';
+			top: 50%;
+			left: 50%;
+			width: 100%;
+			height: 100%;
+			border-radius: 50%;
+			background-color: var(--mono200);
+			transition: transform ease 400ms, background-color ease 250ms;
+			z-index: -1;
+		}
+
+		&::after {
+			content: attr(data-initials);
+			top: calc(50% - 1px);
+			left: calc(50% - 1px);
+			line-height: 2;
+			color: var(--primary);
+			font-size: $initials-font-size;
+			font-weight: variables.font-weight(bold);
+			text-transform: uppercase;
+			transition: transform ease 200ms, color ease 250ms;
+		}
+	}
+
+	.addUserBtn {
+		&:hover {
+			svg {
+				transform: scale(1.5) rotate(90deg);
+			}
+		}
+
+		svg {
+			margin: 0 auto;
+			transition: transform ease 250ms;
+
+			path {
+				fill: var(--mono200);
+				transition: fill ease 250ms;
+			}
+		}
+	}
+}
+
+.addUserModal {
+	> div {
+		max-width: 400px;
+		padding-left: variables.size(xl);
+		padding-right: variables.size(xl);
+	}
+
+	h2 {
+		font-weight: variables.font-weight(medium);
+		margin-bottom: variables.size(l);
+	}
+
+	form {
+		> div {
+			+ div {
+				margin-top: variables.size(m);
+			}
+		}
+
+		button {
+			display: block;
+			width: 75%;
+			margin: variables.size(l) auto 0;
+		}
+	}
+}

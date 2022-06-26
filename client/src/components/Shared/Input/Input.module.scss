@@ -1,0 +1,28 @@
+@use '@app/styles/variables';
+@use '@app/styles/shared';
+
+.inputContainer {
+	position: relative;
+
+	> input {
+		width: 100%;
+		padding: variables.size(s);
+		padding-right: variables.size(l);
+	}
+
+	.clear {
+		@extend %btn-reset;
+		@include shared.increase-clickable-area;
+
+		position: absolute;
+		top: 50%;
+		right: variables.size(s);
+		transform: translateY(-50%);
+	}
+}
+
+.error {
+	color: var(--negative);
+	font-size: 16px;
+	padding: variables.size(xs);
+}

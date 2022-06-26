@@ -1,0 +1,74 @@
+@use '@app/styles/variables';
+@use '@app/styles/shared';
+
+.button {
+	@extend %btn-reset;
+
+	$button-min-width: 100px;
+	$button-min-height: 35px;
+
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: $button-min-width;
+	min-height: $button-min-height;
+	padding: variables.size(s) variables.size(l);
+	border-radius: variables.size(s);
+	font-size: 16px;
+	font-weight: variables.font-weight(semi-bold);
+	color: var(--white);
+	user-select: none;
+	transition: color ease 250ms, background-color ease 250ms;
+
+	&:disabled {
+		background-color: var(--primary200);
+		pointer-events: none;
+	}
+
+	&.primary {
+		background-color: var(--primary);
+
+		&:hover {
+			background-color: var(--primary500);
+		}
+
+		&:focus {
+			background-color: var(--primary600);
+		}
+
+		&:active {
+			background-color: var(--primary700);
+		}
+
+		&:disabled {
+			background-color: var(--primary50);
+			color: var(--primary100);
+		}
+	}
+
+	&.secondary {
+		background-color: var(--white);
+		color: var(--primary);
+
+		&:hover {
+			color: var(--primary500);
+		}
+
+		&:focus {
+			color: var(--primary600);
+		}
+
+		&:active {
+			color: var(--primary);
+		}
+
+		&:disabled {
+			background-color: var(--primary200);
+			color: var(--white);
+
+			svg path {
+				fill: var(--primary600);
+			}
+		}
+	}
+}

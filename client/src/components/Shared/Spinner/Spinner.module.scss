@@ -1,0 +1,18 @@
+@use '@app/styles/shared';
+
+:global(.dark-theme) {
+	border-color: var(--spinner-base-color, var(--mono100));
+}
+
+.spinner {
+	display: block;
+	width: var(--spinner-size, 25px);
+	height: var(--spinner-size, 25px);
+	margin: 0 auto;
+	border: var(--spinner-border-size, 5px) solid var(--spinner-base-color, var(--mono500));
+	border-top-color: var(--spinner-highlight-color, var(--primary));
+	border-radius: 50%;
+	background-color: transparent;
+	transition: border-color ease 250ms;
+	animation: spin linear infinite 1s;
+}

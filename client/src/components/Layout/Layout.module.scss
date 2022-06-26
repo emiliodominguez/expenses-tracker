@@ -1,0 +1,41 @@
+@use '@app/styles/variables';
+@use '@app/styles/shared';
+
+:global(.dark-theme) {
+	.header {
+		nav {
+			a {
+				color: var(--white);
+			}
+		}
+	}
+}
+
+.header {
+	height: var(--header-height);
+
+	nav {
+		text-align: center;
+
+		a {
+			color: var(--mono1000);
+			transition: color ease 250ms;
+
+			+ a {
+				margin-left: 25px;
+			}
+
+			&:hover {
+				color: var(--primary);
+			}
+		}
+	}
+}
+
+.main {
+	@include shared.custom-scrollbar;
+
+	height: calc(100vh - var(--header-height));
+	padding: variables.size(xl);
+	overflow-y: auto;
+}

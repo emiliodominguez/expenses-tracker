@@ -8,7 +8,7 @@ import { useEffect, useCallback, useMemo } from 'react';
  * @param target Target element (window by default)
  * @param options The event listener options
  */
-export default function useEventListener(
+export function useEventListener(
 	event: string,
 	callback: (e: any) => void,
 	target: HTMLElement | Window | MediaQueryList = window,

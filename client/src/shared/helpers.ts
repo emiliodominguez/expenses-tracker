@@ -63,3 +63,28 @@ export function className(...classNames: any): ClassName {
 
 	return { className: classes.join(' ') };
 }
+
+/**
+ * Masks any given input
+ * @param input The input
+ * @param mask The mask
+ * @param maskCharacter The mask character
+ * @param fallbackCharacter A fallback character in case of undesired white spaces
+ * @returns The masked input
+ */
+export function maskInput(input: string, mask?: string, maskCharacter: string = '*', fallbackCharacter: string = '_'): string {
+	if (!mask) return input;
+
+	let index = 0;
+	const numeric = input.replaceAll(/[^\d]/g, '');
+	const formatted = mask.split('').map(character => {
+		if (character === maskCharacter) {
+			character = numeric[index] ?? fallbackCharacter;
+			index++;
+		}
+
+		return character;
+	});
+
+	return formatted.join('');
+}
