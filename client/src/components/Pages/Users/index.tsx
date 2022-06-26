@@ -1,11 +1,11 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent } from 'react';
 import { useUsersContext } from '@app/contexts';
 import Layout from '@app/components/Layout';
 import { Spinner, Modal, Icon, Input, Button, useModal } from '@app/components/Shared';
 import { IUser } from '@app/models';
-import styles from './UsersPage.module.scss';
+import styles from './Users.module.scss';
 
-export default function UsersPage(): JSX.Element {
+export function Users(): JSX.Element {
 	const { users, loading, setCurrentUser, createUser, updateUser, deleteUser } = useUsersContext();
 	const { modalProps, openModal, closeModal } = useModal<{ user?: IUser }>();
 

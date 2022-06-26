@@ -76,7 +76,8 @@ export function UsersContextProvider(props: PropsWithChildren<{}>): JSX.Element 
 
 	useEffect(() => {
 		navigate(currentUser ? routes.movements.url : routes.users.url);
-	}, [currentUser, navigate]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [currentUser]);
 
 	return (
 		<UsersContext.Provider
