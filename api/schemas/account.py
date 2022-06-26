@@ -6,6 +6,7 @@ class AccountBase(BaseModel):
     amount: int
     currency: str
     type: str
+    active: bool
     note: str = ""
 
 

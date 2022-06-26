@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
 from config.db import Base
 
@@ -11,6 +11,7 @@ class Account(Base):
     amount = Column(Integer)
     currency = Column(String)
     type = Column(String)
+    active = Column(Boolean)
     note = Column(String, nullable=True)
 
     user_id = Column(Integer, ForeignKey("users.id"))
