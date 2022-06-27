@@ -2,8 +2,10 @@ import { FormEvent, useRef } from 'react';
 import Layout from '@app/components/Layout';
 import { useUsersContext, useAccountsContext } from '@app/contexts';
 import { IAccount, TAccountPayload } from '@app/models';
-import { Spinner, Modal, Input, Button, useModal, Checkbox } from '@app/components/Shared';
+import { Spinner, Modal, Input, Button, useModal, Checkbox, Icon } from '@app/components/Shared';
 import styles from './Accounts.module.scss';
+
+const currencyFormatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
 
 export function Accounts(): JSX.Element {
 	const { currentUser } = useUsersContext();
@@ -30,20 +32,45 @@ export function Accounts(): JSX.Element {
 		<Layout title="Accounts" className={styles.accountsPage}>
 			{loading && <Spinner className={styles.spinner} />}
 
-			{!loading && accounts?.length === 0 && <h2>No accounts to list...</h2>}
+			{!loading && accounts?.length === 0 && <h2 className={styles.noRecordsMessage}>No accounts to list...</h2>}
 
 			{!loading && accounts?.length > 0 && (
 				<>
 					<ul className={styles.accounts}>
+						<li className={styles.addAccountBtn}>
+							<Button title="Add account" onClick={() => openModal({})}>
+								<Icon name="add" size={25} />
+							</Button>
+						</li>
+
 						{accounts.map(account => (
-							<li key={account.id} onClick={() => openModal({ account })}>
-								{account.name} - {account.balance}
-								<button onClick={() => deleteAccount(account.id)}>Delete</button>
+							<li key={account.id} className={styles.account}>
+								<p className={styles.detail}>
+									<b>{account.name}</b>
+									<span className={styles.balance}>{currencyFormatter.format(account.balance)}</span>
+								</p>
+
+								<div className={styles.actions}>
+									<Button
+										onClick={e => {
+											e.stopPropagation();
+											openModal({ account });
+										}}>
+										<Icon name="pencil" />
+									</Button>
+
+									<Button
+										kind="negative"
+										onClick={e => {
+											e.stopPropagation();
+											deleteAccount(account.id);
+										}}>
+										<Icon name="trashCan" />
+									</Button>
+								</div>
 							</li>
 						))}
 					</ul>
-
-					<button onClick={() => openModal({})}>Add account</button>
 				</>
 			)}
 

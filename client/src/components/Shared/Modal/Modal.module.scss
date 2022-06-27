@@ -38,7 +38,7 @@
 	margin: auto;
 	background-color: var(--white);
 	box-shadow: variables.shadow(500);
-	transition: background-color ease 250ms, color ease 250ms;
+	transition: background-color ease 250ms;
 	z-index: variables.z-index(basic);
 }
 

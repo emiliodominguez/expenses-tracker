@@ -21,7 +21,8 @@
 	transition: color ease 250ms, background-color ease 250ms;
 
 	&:disabled {
-		background-color: var(--primary200);
+		background-color: var(--mono400);
+		color: var(--mono200);
 		pointer-events: none;
 	}
 
@@ -30,39 +31,50 @@
 
 		&:hover,
 		&:focus {
-			background-color: var(--primary600);
+			background-color: var(--primary100);
 		}
 
 		&:active {
-			background-color: var(--primary700);
-		}
-
-		&:disabled {
-			background-color: var(--primary100);
-			color: var(--primary100);
+			background-color: var(--primary200);
 		}
 	}
 
-	&.secondary {
-		background-color: var(--white);
-		color: var(--primary);
+	&.positive {
+		background-color: var(--positive);
 
 		&:hover,
 		&:focus {
-			color: var(--primary600);
+			background-color: var(--positive700);
 		}
 
 		&:active {
-			color: var(--primary);
+			background-color: var(--positive800);
+		}
+	}
+
+	&.negative {
+		background-color: var(--negative);
+
+		&:hover,
+		&:focus {
+			background-color: var(--negative700);
 		}
 
-		&:disabled {
-			background-color: var(--primary200);
-			color: var(--white);
+		&:active {
+			background-color: var(--negative800);
+		}
+	}
 
-			svg path {
-				fill: var(--primary600);
-			}
+	&.warning {
+		background-color: var(--warning);
+
+		&:hover,
+		&:focus {
+			background-color: var(--warning700);
+		}
+
+		&:active {
+			background-color: var(--warning800);
 		}
 	}
 }

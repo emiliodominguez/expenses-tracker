@@ -86,7 +86,7 @@
 		border-radius: variables.size(s);
 		padding: variables.size(l);
 		box-shadow: variables.shadow(400), variables.shadow(400);
-		transition: background-color ease 250ms, color ease 250ms;
+		transition: background-color ease 250ms;
 		cursor: pointer;
 
 		display: flex;
@@ -159,7 +159,7 @@
 			font-size: $initials-font-size;
 			font-weight: variables.font-weight(bold);
 			text-transform: uppercase;
-			transition: transform ease 200ms, color ease 250ms;
+			transition: transform ease 200ms;
 		}
 	}
 

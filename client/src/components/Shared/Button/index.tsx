@@ -4,7 +4,7 @@ import { Spinner, ISpinnerProps } from '../Spinner';
 import styles from './Button.module.scss';
 
 interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-	kind?: 'primary' | 'secondary';
+	kind?: 'primary' | 'negative' | 'warning' | 'positive';
 	loading?: boolean;
 	spinnerProps?: ISpinnerProps;
 }
@@ -26,7 +26,6 @@ export function Button(props: PropsWithChildren<IButtonProps>): JSX.Element {
 		<button
 			{...getButtonProps()}
 			disabled={props.disabled ?? props.loading}
-			data-testid={(props as any)['data-testid'] ?? 'ui-button'}
 			{...className(styles.button, styles[props.kind ?? 'primary'], props.className)}>
 			{props.loading ? (
 				<Spinner {...props.spinnerProps} size={props.spinnerProps?.size ?? 15} borderSize={props.spinnerProps?.borderSize ?? 2} />

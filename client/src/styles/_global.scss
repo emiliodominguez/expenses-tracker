@@ -15,7 +15,7 @@ body {
 	min-height: 100vh;
 	background-color: var(--white);
 	color: var(--black);
-	transition: background-color ease 250ms;
+	transition: background-color ease 250ms, color ease 250ms;
 
 	&.dark-theme {
 		background-color: var(--mono1000);

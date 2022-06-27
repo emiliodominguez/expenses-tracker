@@ -1,4 +1,13 @@
 @use '@app/styles/variables';
+@use '@app/styles/shared';
+
+:global(.dark-theme) {
+	.accounts .account {
+		.balance {
+			color: var(--mono600);
+		}
+	}
+}
 
 .accountsPage {
 	display: flex;
@@ -9,6 +18,78 @@
 	position: relative;
 	margin: auto;
 	bottom: var(--header-height);
+}
+
+.noRecordsMessage {
+	text-align: center;
+	font-weight: variables.font-weight(light);
+	color: var(--mono600);
+}
+
+.accounts {
+	width: 100%;
+	max-width: 500px;
+	margin: 0 auto;
+	list-style: none;
+
+	li {
+		display: flex;
+		align-items: center;
+		padding: variables.size(m);
+		text-align: center;
+	}
+
+	.addAccountBtn {
+		justify-content: center;
+
+		button {
+			background-color: var(--primary);
+
+			svg {
+				margin: 0 auto;
+
+				path {
+					fill: var(--white);
+				}
+			}
+		}
+	}
+
+	.account {
+		justify-content: space-between;
+
+		.detail {
+			text-align: left;
+
+			b,
+			span {
+				display: block;
+			}
+
+			b {
+				margin-bottom: variables.size(s);
+			}
+		}
+
+		.balance {
+			color: var(--mono700);
+		}
+
+		.actions {
+			button {
+				min-width: unset;
+				width: variables.size(xl);
+
+				+ button {
+					margin-left: variables.size(m);
+				}
+
+				svg path {
+					fill: var(--white);
+				}
+			}
+		}
+	}
 }
 
 .modal {

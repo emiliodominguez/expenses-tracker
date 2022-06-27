@@ -136,6 +136,11 @@
 	height: calc(100vh - var(--header-height));
 	padding: variables.size(xl);
 	overflow-y: auto;
+
+	@media #{variables.media-query(max, md)} {
+		padding-left: variables.size(m);
+		padding-right: variables.size(m);
+	}
 }
 
 @keyframes active-link {
