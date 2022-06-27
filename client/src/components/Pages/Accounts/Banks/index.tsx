@@ -76,7 +76,7 @@ export function Banks(): JSX.Element {
 
 	return (
 		<>
-			{loading && <Spinner className={styles.spinner} />}
+			{loading && <Spinner />}
 
 			{!loading && accounts?.length === 0 && <h2 className="no-records-message">No accounts to list...</h2>}
 

@@ -58,7 +58,7 @@ export function Cards(): JSX.Element {
 
 	return (
 		<>
-			{loading && <Spinner className={styles.spinner} />}
+			{loading && <Spinner />}
 
 			{!loading && cards?.length === 0 && <h2 className="no-records-message">No cards to list...</h2>}
 

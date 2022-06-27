@@ -37,7 +37,7 @@ export function Users(): JSX.Element {
 
 	return (
 		<Layout title="Users">
-			{loading && <Spinner className={styles.spinner} />}
+			{loading && <Spinner />}
 
 			{!loading && users?.length === 0 && <h2 className="no-records-message">No users to list...</h2>}
 

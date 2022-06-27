@@ -49,16 +49,6 @@
 	}
 }
 
-.spinner,
-.users {
-	margin: auto;
-}
-
-.spinner {
-	position: relative;
-	bottom: var(--header-height);
-}
-
 .users {
 	$btn-size: 150px;
 	$initials-size: 65px;
@@ -68,7 +58,7 @@
 	width: 100%;
 	max-width: ($btn-size + $gap) * 3;
 	list-style: none;
-	margin-top: variables.size(xxl);
+	margin: variables.size(xxl) auto 0;
 
 	display: flex;
 	justify-content: center;
