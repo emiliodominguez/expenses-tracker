@@ -1,9 +1,11 @@
-import { MouseEvent, FormEvent, useRef } from 'react';
+import { MouseEvent, FormEvent, useRef, useMemo, Fragment } from 'react';
 import Layout from '@app/components/Layout';
 import { useUsersContext, useAccountsContext } from '@app/contexts';
 import { IAccount, TAccountPayload } from '@app/models';
 import { Spinner, Modal, Input, Button, useModal, Checkbox, Icon } from '@app/components/Shared';
 import styles from './Accounts.module.scss';
+
+type TAccountsAccumulator = { [key: string]: IAccount[] };
 
 const currencyFormatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
 
@@ -12,11 +14,26 @@ export function Accounts(): JSX.Element {
 	const { accounts, loading, createAccount, updateAccount, deleteAccount } = useAccountsContext();
 	const { modalProps, openModal, closeModal } = useModal<{ account?: IAccount }>();
 	const activeInputRef = useRef<HTMLInputElement>(null);
+	const accountsMemo = useMemo(sectionAccounts, [accounts]);
 
-	function handleAccountAction(e: MouseEvent<HTMLButtonElement>, type: 'edit' | 'delete', account: IAccount): void {
-		e.stopPropagation();
-		if (type === 'edit') openModal({ account });
-		if (type === 'delete') deleteAccount(account.id);
+	function sectionAccounts() {
+		return accounts.reduce((acc: TAccountsAccumulator, account) => {
+			if (acc[account.type]) {
+				acc[account.type].push(account);
+			} else {
+				acc[account.type] = [account];
+			}
+
+			return acc;
+		}, {});
+	}
+
+	function handleAccountAction(type: 'edit' | 'delete', account: IAccount): (e: MouseEvent<HTMLButtonElement>) => void {
+		return e => {
+			e.stopPropagation();
+			if (type === 'edit') openModal({ account });
+			if (type === 'delete') deleteAccount(account.id);
+		};
 	}
 
 	function handleFormSubmit(e: FormEvent): void {
@@ -34,6 +51,8 @@ export function Accounts(): JSX.Element {
 		closeModal();
 	}
 
+	console.log(accountsMemo);
+
 	return (
 		<Layout title="Accounts" className={styles.accountsPage}>
 			{loading && <Spinner className={styles.spinner} />}
@@ -42,23 +61,29 @@ export function Accounts(): JSX.Element {
 
 			{!loading && accounts?.length > 0 && (
 				<ul className={styles.accounts}>
-					{accounts.map(account => (
-						<li key={account.id} className={styles.account}>
-							<p className={styles.detail}>
-								<b>{account.name}</b>
-								<span className={styles.balance}>{currencyFormatter.format(account.balance)}</span>
-							</p>
+					{Object.entries(accountsMemo).map(([section, sectionAccounts]) => (
+						<Fragment key={section}>
+							<li className={styles.section}>{section}</li>
 
-							<div className={styles.actions}>
-								<Button onClick={e => handleAccountAction(e, 'edit', account)}>
-									<Icon name="pencil" />
-								</Button>
+							{sectionAccounts.map(account => (
+								<li key={account.id} className={styles.account}>
+									<p className={styles.detail}>
+										<b>{account.name}</b>
+										<span className={styles.balance}>{currencyFormatter.format(account.balance)}</span>
+									</p>
 
-								<Button kind="negative" onClick={e => handleAccountAction(e, 'delete', account)}>
-									<Icon name="trashCan" />
-								</Button>
-							</div>
-						</li>
+									<div className={styles.actions}>
+										<Button onClick={handleAccountAction('edit', account)}>
+											<Icon name="pencil" size={15} />
+										</Button>
+
+										<Button kind="negative" onClick={handleAccountAction('delete', account)}>
+											<Icon name="trashCan" size={15} />
+										</Button>
+									</div>
+								</li>
+							))}
+						</Fragment>
 					))}
 				</ul>
 			)}
@@ -73,10 +98,27 @@ export function Accounts(): JSX.Element {
 					<h2>{modalProps?.account ? `Edit ${modalProps?.account.name}` : 'Add a new account'}</h2>
 
 					<form onSubmit={handleFormSubmit}>
-						<Input type="text" name="name" value={modalProps.account?.name} placeholder="Set the account's name" required />
+						<Input name="name" value={modalProps.account?.name} placeholder="Set the account's name" required />
 						<Input type="number" name="balance" value={modalProps.account?.balance} placeholder="Set the account's balance" required />
-						<Input type="text" name="currency" value={modalProps.account?.currency} placeholder="Set the account's currency" required />
-						<Input type="text" name="type" value={modalProps.account?.type} placeholder="Set the account's type" required />
+						<Input
+							name="currency"
+							value={modalProps.account?.currency}
+							autoSuggestions={{
+								currencyTypes: Object.values(accounts).reduce(
+									(acc: string[], x) => (acc.includes(x.currency) ? acc : [...acc, x.currency]),
+									[]
+								)
+							}}
+							placeholder="Set the account's currency"
+							required
+						/>
+						<Input
+							name="type"
+							value={modalProps.account?.type}
+							autoSuggestions={{ accountTypes: Object.keys(accountsMemo) }}
+							placeholder="Set the account's type"
+							required
+						/>
 						{/* <textarea name="note" value={modalProps.account?.note} placeholder="Set a note (optional)" /> */}
 						<Checkbox ref={activeInputRef} name="active" label="Active account" checked={modalProps.account?.active} />
 						<Input type="hidden" min={0} value={currentUser?.id} name="user_id" readOnly />

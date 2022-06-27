@@ -2,9 +2,16 @@
 @use '@app/styles/shared';
 
 :global(.dark-theme) {
-	.accounts .account {
-		.balance {
-			color: var(--mono600);
+	.accounts {
+		.section {
+			background-color: var(--mono900);
+			color: var(--mono200);
+		}
+
+		.account {
+			.balance {
+				color: var(--mono600);
+			}
 		}
 	}
 }
@@ -26,12 +33,25 @@
 	margin: 0 auto;
 	list-style: none;
 
+	.section {
+		font-size: 18px;
+		font-weight: variables.font-weight(semi-bold);
+		background-color: var(--mono200);
+		border-radius: variables.size(s);
+		padding: variables.size(s) variables.size(m);
+		transition: background-color ease 250ms;
+	}
+
 	.account {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		padding: variables.size(m);
 		text-align: center;
+		padding: variables.size(m);
+
+		+ .section {
+			margin-top: variables.size(l);
+		}
 
 		.detail {
 			text-align: left;
@@ -52,11 +72,12 @@
 
 		.actions {
 			button {
-				min-width: unset;
-				width: variables.size(xl);
+				min-width: auto;
+				width: 40px;
+				padding: variables.size(xs);
 
 				+ button {
-					margin-left: variables.size(m);
+					margin-left: variables.size(s);
 				}
 
 				svg path {

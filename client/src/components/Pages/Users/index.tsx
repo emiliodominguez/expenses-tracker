@@ -1,4 +1,4 @@
-import { FormEvent } from 'react';
+import { FormEvent, MouseEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUsersContext } from '@app/contexts';
 import { routes } from '@app/config';
@@ -11,6 +11,14 @@ export function Users(): JSX.Element {
 	const { users, loading, setCurrentUser, createUser, updateUser, deleteUser } = useUsersContext();
 	const { modalProps, openModal, closeModal } = useModal<{ user?: IUser }>();
 	const navigate = useNavigate();
+
+	function handleAccountAction(type: 'edit' | 'delete', user: IUser): (e: MouseEvent<HTMLButtonElement>) => void {
+		return e => {
+			e.stopPropagation();
+			if (type === 'edit') openModal({ user });
+			if (type === 'delete') deleteUser(user.id);
+		};
+	}
 
 	function handleFormSubmit(e: FormEvent): void {
 		e.preventDefault();
@@ -46,21 +54,11 @@ export function Users(): JSX.Element {
 							<p className={styles.initials} data-initials={user.name[0]} />
 							<p className={styles.name}>{user.name}</p>
 							<div className={styles.userActions}>
-								<button
-									title="Edit user"
-									onClick={e => {
-										e.stopPropagation();
-										openModal({ user });
-									}}>
+								<button title="Edit user" onClick={handleAccountAction('edit', user)}>
 									<Icon name="pencil" size={16} />
 								</button>
 
-								<button
-									title="Delete user"
-									onClick={e => {
-										e.stopPropagation();
-										deleteUser(user.id);
-									}}>
+								<button title="Delete user" onClick={handleAccountAction('delete', user)}>
 									<Icon name="trashCan" size={16} />
 								</button>
 							</div>
@@ -79,7 +77,7 @@ export function Users(): JSX.Element {
 					<h2>{modalProps?.user ? `Edit ${modalProps?.user.name}` : 'Add a new user'}</h2>
 
 					<form onSubmit={handleFormSubmit}>
-						<Input type="text" name="name" value={modalProps.user?.name} placeholder="Set the user's name" required />
+						<Input name="name" value={modalProps.user?.name} placeholder="Set the user's name" required />
 						<Input type="email" name="email" value={modalProps.user?.email} placeholder="Set the user's email" required />
 						<Input type="date" name="birth_date" value={modalProps.user?.birth_date} required />
 						<Button type="submit">{`${modalProps?.user ? 'Edit' : 'Add'} user`}</Button>
