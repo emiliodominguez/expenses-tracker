@@ -1,0 +1,37 @@
+@use '@app/styles/variables';
+
+.accountsPage {
+	display: flex;
+	flex-direction: column;
+}
+
+.spinner {
+	position: relative;
+	margin: auto;
+	bottom: var(--header-height);
+}
+
+.modal {
+	> div {
+		max-width: 400px;
+		padding-left: variables.size(xl);
+		padding-right: variables.size(xl);
+	}
+
+	h2 {
+		font-weight: variables.font-weight(medium);
+		margin-bottom: variables.size(l);
+	}
+
+	form {
+		> * + * {
+			margin-top: variables.size(m);
+		}
+
+		button {
+			display: block;
+			width: 75%;
+			margin: variables.size(l) auto 0;
+		}
+	}
+}

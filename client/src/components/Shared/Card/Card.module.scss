@@ -4,6 +4,20 @@
 $_card-width: 300px;
 $_card-height: 185px;
 
+:global(.dark-theme) {
+	.card {
+		background-color: var(--mono1000);
+	}
+
+	.map {
+		opacity: 0.3;
+	}
+
+	.content {
+		color: var(--mono100);
+	}
+}
+
 .card {
 	position: relative;
 	max-width: $_card-width;
@@ -11,10 +25,11 @@ $_card-height: 185px;
 	padding: variables.size(m);
 	border-radius: variables.size(s);
 	border: 1px solid var(--mono800);
-	background-color: var(--mono1000);
+	background-color: var(--mono500);
 	box-shadow: variables.shadow(500), variables.shadow(500);
 	overflow: hidden;
 	touch-action: none;
+	transition: background-color ease 250ms;
 	z-index: variables.z-index(basic);
 
 	&::after {
@@ -42,9 +57,10 @@ $_card-height: 185px;
 	width: 100%;
 	height: 100%;
 	object-fit: contain;
-	opacity: 0.2;
+	opacity: 0.1;
 	pointer-events: none;
 	transform: translate(-50%, -50%);
+	transition: opacity ease 250ms;
 	z-index: -1;
 	filter: brightness(0);
 }
@@ -63,6 +79,8 @@ $_card-height: 185px;
 
 .content {
 	margin-top: 30%;
+	color: var(--mono900);
+	transition: color ease 250ms;
 
 	p {
 		font-family: 'credit-card';

@@ -30,7 +30,7 @@ export function Modal(props: PropsWithChildren<IModalProps>): JSX.Element {
 	}
 
 	return (
-		<div {...className(styles.modal, props.className)} onClick={handleClickOutsideContent}>
+		<div {...className(styles.modal, props.className)} onPointerDown={handleClickOutsideContent}>
 			<div ref={contentRef} className={styles.content}>
 				<button className={styles.closeBtn} onClick={props.close}>
 					<Icon name="close" size={12} />

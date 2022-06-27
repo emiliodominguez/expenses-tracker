@@ -5,28 +5,125 @@
 	.header {
 		nav {
 			a {
-				color: var(--white);
+				color: var(--mono300);
+
+				&:hover {
+					color: var(--primary200);
+				}
+
+				&:global(.active) {
+					color: var(--primary300);
+
+					&::after {
+						background-color: var(--primary300);
+					}
+				}
 			}
 		}
 	}
 }
 
 .header {
+	position: relative;
 	height: var(--header-height);
 
+	@media #{variables.media-query(max, md)} {
+		padding-right: variables.size(xxl);
+	}
+
 	nav {
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: variables.size(l);
+		padding: 0 variables.size(l);
 		text-align: center;
 
+		@media #{variables.media-query(max, md)} {
+			justify-content: flex-start;
+			overflow-x: auto;
+		}
+
 		a {
-			color: var(--mono1000);
-			transition: color ease 250ms;
+			position: relative;
+			color: var(--mono600);
+			text-decoration: none;
+			text-transform: uppercase;
+			font-weight: variables.font-weight(medium);
+			transition: color ease 250ms, opacity ease 250ms;
 
-			+ a {
-				margin-left: 25px;
-			}
-
+			&:global(.active),
 			&:hover {
 				color: var(--primary);
+			}
+
+			&:not(:global(.active)) {
+				&.inactive {
+					opacity: 0.25;
+					pointer-events: none;
+				}
+			}
+
+			&:global(.active) {
+				&::after {
+					content: '';
+					position: absolute;
+					top: calc(100% + #{variables.size(xs)});
+					left: 0;
+					width: 100%;
+					height: variables.size(xs) * 0.5;
+					border-radius: variables.size(s);
+					background-color: var(--primary);
+					transform-origin: center;
+					transform: scaleX(0);
+					animation: active-link ease forwards 250ms;
+				}
+			}
+		}
+	}
+
+	.darkThemeToggler {
+		@extend %btn-reset;
+
+		position: absolute;
+		top: 50%;
+		right: variables.size(l) * 0.5;
+		transform: translateY(-50%);
+
+		&::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 75%;
+			border-radius: 50%;
+			opacity: 0;
+			background-color: var(--white);
+			transition: opacity ease 2s;
+			filter: blur(15px);
+		}
+
+		&.active {
+			&::after {
+				opacity: 0.75;
+			}
+
+			svg {
+				path {
+					fill: var(--mono100);
+				}
+			}
+		}
+
+		svg {
+			position: relative;
+			z-index: variables.z-index(basic);
+
+			path {
+				fill: var(--mono600);
+				transition: fill ease 250ms;
 			}
 		}
 	}
@@ -38,4 +135,10 @@
 	height: calc(100vh - var(--header-height));
 	padding: variables.size(xl);
 	overflow-y: auto;
+}
+
+@keyframes active-link {
+	to {
+		transform: scaleX(1);
+	}
 }

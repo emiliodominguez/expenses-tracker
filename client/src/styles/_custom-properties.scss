@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
 :root {
-	--primary-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	--primary-font: 'Roboto', sans-serif;
 	// --secondary-font: Calibri, Calibri-Fallback, Arial, sans-serif;
 
 	// Sizes
@@ -8,32 +10,30 @@
 	// Color scales
 	// ====================
 	// Primary
-	--primary: #cc0033;
-	--primary50: #fcf8f8;
-	--primary100: #f8c7c9;
-	--primary200: #e39bad;
-	--primary300: #f84663;
-	--primary400: #ff002c;
-	--primary500: #bb002f;
-	--primary600: #87001b;
-	--primary700: #590012;
-	--primary800: #40000d;
-	--primary900: #260008;
-	--primaryA: #111111;
-	--primaryB: #ffffff;
+	--primary: #52489c;
+	--primary50: #c0dae0;
+	--primary100: #a7c3d3;
+	--primary200: #8fa7c6;
+	--primary300: #7787b9;
+	--primary400: #5f64aa;
+	--primary500: #52489c;
+	--primary600: #573e8a;
+	--primary700: #593477;
+	--primary800: #562a64;
+	--primary900: #502151;
 
 	// Accent
-	--accent: #cc0033;
-	--accent50: #fcf8f8;
-	--accent100: #f8c7c9;
-	--accent200: #e39bad;
-	--accent300: #f84663;
-	--accent400: #ff002c;
-	--accent500: #ab0022;
-	--accent600: #87001b;
-	--accent700: #590012;
-	--accent800: #40000d;
-	--accent900: #260008;
+	--accent: #4062bb;
+	--accent50: #bcece2;
+	--accent100: #a2e3e2;
+	--accent200: #89cdda;
+	--accent300: #70aed0;
+	--accent400: #588bc6;
+	--accent500: #4062bb;
+	--accent600: #363da6;
+	--accent700: #3b2d90;
+	--accent800: #432479;
+	--accent900: #441c62;
 
 	// Mono
 	--white: #ffffff;

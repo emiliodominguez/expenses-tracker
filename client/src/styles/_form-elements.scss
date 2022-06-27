@@ -3,6 +3,8 @@
 input,
 textarea,
 select {
+	display: block;
+	width: 100%;
 	border: 1px solid var(--mono700);
 	border-radius: variables.size(xs);
 
@@ -10,7 +12,6 @@ select {
 	&:-webkit-autofill,
 	&:-webkit-autofill:hover,
 	&:-webkit-autofill:focus {
-		/* stylelint-disable-next-line property-no-vendor-prefix */
 		-webkit-box-shadow: 0 0 0 1000px transparent inset;
 		transition: background-color 5000s ease-in-out 0;
 	}
@@ -25,4 +26,28 @@ select {
 		border-color: var(--primary);
 		box-shadow: 0 0 0 1px var(--primary200);
 	}
+}
+
+input,
+textarea {
+	padding: variables.size(s);
+}
+
+input {
+	&::-webkit-outer-spin-button,
+	&::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+
+	&[type='number'] {
+		-moz-appearance: textfield;
+	}
+}
+
+textarea {
+	min-width: 100%;
+	max-width: 100%;
+	min-height: 75px;
+	max-height: 150px;
 }

@@ -3,7 +3,7 @@ import { icons, TIcon } from '@app/shared/icons';
 import { MappedStyles } from '@app/styles/interfaces/mapped-styles';
 import styles from './Icon.module.scss';
 
-interface IconProps {
+interface IIconProps {
 	name: TIcon;
 	title?: string;
 	size?: number;
@@ -14,7 +14,7 @@ interface IconProps {
 /**
  * The Icon component
  */
-export function Icon(props: IconProps): JSX.Element {
+export function Icon(props: IIconProps): JSX.Element {
 	if (!icons.hasOwnProperty(props.name)) return <></>;
 
 	return (

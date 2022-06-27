@@ -19,21 +19,22 @@ interface IUsersContext {
 
 const UsersContext = createContext<IUsersContext>({} as IUsersContext);
 
+// const localStorageKey = 'ET_USER';
+
 export function UsersContextProvider(props: PropsWithChildren<{}>): JSX.Element {
 	const [usersData, setUsersData] = useState<IRequestPayload<IUser[]>>({ data: [], loading: true });
 	const [currentUser, setCurrentUser] = useState<IUser | null>(null);
 	const usersService = useInjection<UsersService>(Services.UsersService);
 	const navigate = useNavigate();
 
-	async function getUsers(): Promise<{ abortController: AbortController }> {
+	function getUsers(): { abortController: AbortController } {
 		const abortController = new AbortController();
 
 		setUsersData(prev => ({ ...prev, error: undefined }));
 
 		try {
 			usersService.get(abortController.signal).then(data => {
-				if (!data) throw new Error();
-				setUsersData({ data, loading: false, error: undefined });
+				if (data) setUsersData({ data, loading: false, error: undefined });
 			});
 		} catch (error) {
 			setUsersData(prev => ({ ...prev, loading: false, error: error as Error }));
@@ -61,13 +62,13 @@ export function UsersContextProvider(props: PropsWithChildren<{}>): JSX.Element 
 		return deletedUser;
 	}
 
-	useEffect(() => {
-		let abortController: AbortController;
+	// function getStoredUser(): IUser | null {
+	// 	const user = localStorage.getItem(localStorageKey);
+	// 	return user ? JSON.parse(user) : null;
+	// }
 
-		(async () => {
-			const response = await getUsers();
-			abortController = response?.abortController;
-		})();
+	useEffect(() => {
+		const { abortController } = getUsers();
 
 		return () => {
 			abortController?.abort();

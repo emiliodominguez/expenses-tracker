@@ -2,7 +2,7 @@ import { FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUsersContext } from '@app/contexts';
 import { routes } from '@app/config';
-import { IUser } from '@app/models';
+import { IUser, TUserPayload } from '@app/models';
 import Layout from '@app/components/Layout';
 import { Spinner, Modal, Icon, Input, Button, useModal } from '@app/components/Shared';
 import styles from './Users.module.scss';
@@ -16,14 +16,7 @@ export function Users(): JSX.Element {
 		e.preventDefault();
 
 		const formData = new FormData(e.target as HTMLFormElement);
-
-		if (![...formData.values()].some(Boolean)) return;
-
-		const payload = {
-			name: formData.get('name') as string,
-			email: formData.get('email') as string,
-			birth_date: formData.get('birthDate') as string
-		};
+		const payload = Object.fromEntries(formData) as TUserPayload;
 
 		if (modalProps?.user) {
 			updateUser(modalProps.user.id, payload);
@@ -46,7 +39,7 @@ export function Users(): JSX.Element {
 							className={styles.user}
 							onClick={() => {
 								setCurrentUser(user);
-								navigate(routes.movements.url);
+								navigate(routes.accounts.url);
 							}}>
 							<p className={styles.initials} data-initials={user.name[0]} />
 							<p className={styles.name}>{user.name}</p>
@@ -57,7 +50,7 @@ export function Users(): JSX.Element {
 										e.stopPropagation();
 										openModal({ user });
 									}}>
-									<Icon name="pencil" size={20} />
+									<Icon name="pencil" size={16} />
 								</button>
 
 								<button
@@ -78,15 +71,15 @@ export function Users(): JSX.Element {
 				</ul>
 			)}
 
-			{/* Add user modal */}
+			{/* Add/edit user modal */}
 			{modalProps && (
-				<Modal className={styles.addUserModal} close={closeModal}>
+				<Modal className={styles.modal} close={closeModal}>
 					<h2>{modalProps?.user ? `Edit ${modalProps?.user.name}` : 'Add a new user'}</h2>
 
 					<form onSubmit={handleFormSubmit}>
-						<Input type="text" name="name" value={modalProps.user?.name} placeholder="Set the user's name" />
-						<Input type="email" name="email" value={modalProps.user?.email} placeholder="Set the user's email" />
-						<Input type="date" name="birthDate" value={modalProps.user?.birth_date} />
+						<Input type="text" name="name" value={modalProps.user?.name} placeholder="Set the user's name" required />
+						<Input type="email" name="email" value={modalProps.user?.email} placeholder="Set the user's email" required />
+						<Input type="date" name="birthDate" value={modalProps.user?.birth_date} required />
 						<Button type="submit">{`${modalProps?.user ? 'Edit' : 'Add'} user`}</Button>
 					</form>
 				</Modal>
