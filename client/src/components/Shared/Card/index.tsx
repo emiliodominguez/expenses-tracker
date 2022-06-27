@@ -2,20 +2,26 @@ import { useMemo, useRef } from 'react';
 import { className, getCardBrand } from '@app/shared/helpers';
 import { useEventListener } from '@app/hooks';
 import styles from './Card.module.scss';
+import { Icon } from '../Icon';
 
 interface ICardProps {
-	cardNumber?: number;
-	expirationDateMonth?: number;
-	expirationDateYear?: number;
+	cardNumber: number | string;
+	expirationDateMonth: number | string;
+	expirationDateYear: number | string;
 	className?: string;
+	onEdit?: () => void;
+	onDelete?: () => void;
 }
+
+export type TCardData = Omit<ICardProps, 'className' | 'onEdit' | 'onDelete'>;
 
 export function Card(props: ICardProps): JSX.Element {
 	const cardRef = useRef<HTMLDivElement>(null);
 	const brandMemo = useMemo(() => getCardBrand(props.cardNumber), [props.cardNumber]);
 
-	function separateCardNumbers(number?: number): string {
+	function separateCardNumbers(number?: number | string): string {
 		if (!number) return '';
+		if (typeof number === 'string') number = parseInt(number);
 		return number.toString().replace(/(\d{4}(?!\s))/g, '$1 ');
 	}
 
@@ -34,6 +40,20 @@ export function Card(props: ICardProps): JSX.Element {
 
 	return (
 		<div ref={cardRef} {...className(styles.card, props.className)}>
+			<div className={styles.actions}>
+				{props.onEdit && (
+					<button title="Edit card" onClick={props.onEdit}>
+						<Icon name="pencil" size={18} />
+					</button>
+				)}
+
+				{props.onDelete && (
+					<button title="Delete card" className={styles.delete} onClick={props.onDelete}>
+						<Icon name="trashCan" size={18} />
+					</button>
+				)}
+			</div>
+
 			<img className={styles.map} src="/assets/img/map.png" alt="Map" />
 
 			{brandMemo && <img className={styles.logo} src={`/assets/cards/${brandMemo?.asset}`} alt={`${brandMemo?.name} logo`} />}

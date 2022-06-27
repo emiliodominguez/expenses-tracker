@@ -44,8 +44,10 @@ const cardTypesRegExps = Object.freeze({
  * @param number The card number
  * @returns The card's brand
  */
-export function getCardBrand(number?: number): CardBrand | null {
+export function getCardBrand(number?: number | string): CardBrand | null {
 	if (!number) return null;
+
+	if (typeof number === 'string') number = parseInt(number);
 
 	const cardNumber = number.toString();
 
@@ -65,33 +67,6 @@ export function getCardBrand(number?: number): CardBrand | null {
 		default:
 			return null;
 	}
-}
-//#endregion
-
-//#region maskInput
-/**
- * Masks any given input
- * @param input The input
- * @param mask The mask
- * @param maskCharacter The mask character
- * @param fallbackCharacter A fallback character in case of undesired white spaces
- * @returns The masked input
- */
-export function maskInput(input: string, mask?: string, maskCharacter: string = '*', fallbackCharacter: string = '_'): string {
-	if (!mask) return input;
-
-	let index = 0;
-	const numeric = input.replaceAll(/[^\d]/g, '');
-	const formatted = mask.split('').map(character => {
-		if (character === maskCharacter) {
-			character = numeric[index] ?? fallbackCharacter;
-			index++;
-		}
-
-		return character;
-	});
-
-	return formatted.join('');
 }
 //#endregion
 

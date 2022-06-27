@@ -36,7 +36,7 @@ export function Users(): JSX.Element {
 	}
 
 	return (
-		<Layout title="Users" className={styles.usersPage}>
+		<Layout title="Users">
 			{loading && <Spinner className={styles.spinner} />}
 
 			{!loading && users?.length === 0 && <h2 className="no-records-message">No users to list...</h2>}
@@ -73,7 +73,7 @@ export function Users(): JSX.Element {
 
 			{/* Add/edit user modal */}
 			{modalProps && (
-				<Modal className={styles.modal} close={closeModal}>
+				<Modal className="form-modal" close={closeModal}>
 					<h2>{modalProps?.user ? `Edit ${modalProps?.user.name}` : 'Add a new user'}</h2>
 
 					<form onSubmit={handleFormSubmit}>

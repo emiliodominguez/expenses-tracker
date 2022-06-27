@@ -7,6 +7,37 @@
 	text-align: center;
 }
 
+.form-modal {
+	// Content
+	> div {
+		max-width: 400px;
+		padding-left: variables.size(xl);
+		padding-right: variables.size(xl);
+
+		// Title
+		> h2 {
+			font-weight: variables.font-weight(light);
+			margin-bottom: variables.size(l);
+		}
+
+		> * + * {
+			margin-top: variables.size(m);
+		}
+	}
+
+	form {
+		display: flex;
+		flex-direction: column;
+		gap: variables.size(m);
+
+		button {
+			display: block;
+			width: 100%;
+			margin: variables.size(l) auto 0;
+		}
+	}
+}
+
 .no-records-message {
 	text-align: center;
 	font-weight: variables.font-weight(light);
@@ -26,6 +57,7 @@
 	height: $size;
 	border-radius: 50%;
 	box-shadow: variables.shadow(500), variables.shadow(500);
+	z-index: variables.z-index(low);
 
 	&:hover {
 		svg {

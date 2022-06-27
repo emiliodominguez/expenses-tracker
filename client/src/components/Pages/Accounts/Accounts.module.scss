@@ -1,114 +1,58 @@
 @use '@app/styles/variables';
-@use '@app/styles/shared';
 
 :global(.dark-theme) {
-	.accounts {
-		.section {
-			background-color: var(--mono900);
-			color: var(--mono200);
+	.nav {
+		user-select: none;
+
+		&::after {
+			background-color: var(--mono700);
 		}
 
-		.account {
-			.balance {
-				color: var(--mono600);
+		a {
+			color: var(--mono700);
+
+			&:global(.active) {
+				color: var(--mono200);
 			}
 		}
 	}
 }
 
 .accountsPage {
-	display: flex;
-	flex-direction: column;
+	:global(.page-title) {
+		margin-bottom: variables.size(m);
+	}
 }
 
-.spinner {
-	position: relative;
-	margin: auto;
-	bottom: var(--header-height);
-}
+.nav {
+	text-align: center;
+	margin-bottom: variables.size(xl);
 
-.accounts {
-	width: 100%;
-	max-width: 500px;
-	margin: 0 auto;
-	list-style: none;
-
-	.section {
-		font-size: 18px;
-		font-weight: variables.font-weight(semi-bold);
-		background-color: var(--mono200);
-		border-radius: variables.size(s);
-		padding: variables.size(s) variables.size(m);
+	&::after {
+		content: '';
+		display: block;
+		width: 100%;
+		max-width: 250px;
+		margin: variables.size(m) auto;
+		height: 1px;
+		background-color: var(--mono600);
 		transition: background-color ease 250ms;
 	}
 
-	.account {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		text-align: center;
-		padding: variables.size(m);
+	a {
+		color: var(--mono600);
+		font-size: 14px;
+		font-weight: variables.font-weight(bold);
+		text-decoration: none;
+		text-transform: uppercase;
+		transition: color ease 250ms;
 
-		+ .section {
-			margin-top: variables.size(l);
+		&:global(.active) {
+			color: var(--mono1000);
 		}
 
-		.detail {
-			text-align: left;
-
-			b,
-			span {
-				display: block;
-			}
-
-			b {
-				margin-bottom: variables.size(s);
-			}
-		}
-
-		.balance {
-			color: var(--mono700);
-		}
-
-		.actions {
-			button {
-				min-width: auto;
-				width: 40px;
-				padding: variables.size(xs);
-
-				+ button {
-					margin-left: variables.size(s);
-				}
-
-				svg path {
-					fill: var(--white);
-				}
-			}
-		}
-	}
-}
-
-.modal {
-	> div {
-		max-width: 400px;
-		padding-left: variables.size(xl);
-		padding-right: variables.size(xl);
-	}
-
-	h2 {
-		font-weight: variables.font-weight(medium);
-		margin-bottom: variables.size(l);
-	}
-
-	form {
-		> * + * {
-			margin-top: variables.size(m);
-		}
-
-		button {
-			display: block;
-			width: 75%;
-			margin: variables.size(l) auto 0;
+		+ a {
+			margin-left: variables.size(l);
 		}
 	}
 }

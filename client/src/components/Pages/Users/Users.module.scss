@@ -49,12 +49,6 @@
 	}
 }
 
-.usersPage {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-
 .spinner,
 .users {
 	margin: auto;
@@ -74,7 +68,7 @@
 	width: 100%;
 	max-width: ($btn-size + $gap) * 3;
 	list-style: none;
-	padding-bottom: var(--header-height);
+	margin-top: variables.size(xxl);
 
 	display: flex;
 	justify-content: center;
@@ -183,33 +177,6 @@
 				fill: var(--mono300);
 				transition: fill ease 250ms;
 			}
-		}
-	}
-}
-
-.modal {
-	> div {
-		max-width: 400px;
-		padding-left: variables.size(xl);
-		padding-right: variables.size(xl);
-	}
-
-	h2 {
-		font-weight: variables.font-weight(medium);
-		margin-bottom: variables.size(l);
-	}
-
-	form {
-		> div {
-			+ div {
-				margin-top: variables.size(m);
-			}
-		}
-
-		button {
-			display: block;
-			width: 75%;
-			margin: variables.size(l) auto 0;
 		}
 	}
 }

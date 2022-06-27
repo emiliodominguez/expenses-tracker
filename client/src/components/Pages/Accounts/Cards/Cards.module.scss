@@ -1,0 +1,15 @@
+@use '@app/styles/variables';
+
+:global(.form-modal) {
+	.card {
+		margin: 0 auto variables.size(xl);
+	}
+}
+
+.cards {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	gap: variables.size(xl);
+}

@@ -22,7 +22,7 @@ const UsersContext = createContext<IUsersContext>({} as IUsersContext);
 // const localStorageKey = 'ET_USER';
 
 export function UsersContextProvider(props: PropsWithChildren<{}>): JSX.Element {
-	const [usersData, setUsersData] = useState<IRequestPayload<IUser[]>>({ data: [], loading: true });
+	const [usersData, setUsersData] = useState<IRequestPayload<IUser>>({ data: [], loading: true });
 	const [currentUser, setCurrentUser] = useState<IUser | null>(null);
 	const usersService = useInjection<UsersService>(Services.UsersService);
 	const navigate = useNavigate();
@@ -30,7 +30,7 @@ export function UsersContextProvider(props: PropsWithChildren<{}>): JSX.Element 
 	function getUsers(): { abortController: AbortController } {
 		const abortController = new AbortController();
 
-		setUsersData(prev => ({ ...prev, error: undefined }));
+		setUsersData(prev => ({ ...prev, loading: true, error: undefined }));
 
 		try {
 			usersService.get(abortController.signal).then(data => {

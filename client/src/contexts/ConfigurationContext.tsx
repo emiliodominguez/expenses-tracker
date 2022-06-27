@@ -23,7 +23,7 @@ enum LsKeys {
 export function ConfigurationContextProvider(props: PropsWithChildren<{}>): JSX.Element {
 	const [configuration, setConfiguration] = useState<IConfigurationContext>({
 		darkThemeActive: JSON.parse(localStorage.getItem(LsKeys.DarkTheme) ?? 'true'),
-		primaryColor: localStorage.getItem(LsKeys.PrimaryColor) ?? '#52489c',
+		primaryColor: localStorage.getItem(LsKeys.PrimaryColor) ?? '#6e62c2',
 		accentColor: localStorage.getItem(LsKeys.AccentColor) ?? '#4062bb'
 	});
 

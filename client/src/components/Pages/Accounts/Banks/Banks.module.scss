@@ -1,0 +1,83 @@
+@use '@app/styles/variables';
+
+:global(.dark-theme) {
+	.accounts {
+		.section {
+			background-color: var(--mono900);
+			color: var(--mono200);
+		}
+
+		.accountDetail {
+			.accountBalance {
+				color: var(--mono700);
+			}
+		}
+	}
+}
+
+.spinner {
+	margin: 0 auto;
+}
+
+.accounts {
+	width: 100%;
+	max-width: 500px;
+	margin: 0 auto;
+	list-style: none;
+
+	.section {
+		font-size: 18px;
+		font-weight: variables.font-weight(semi-bold);
+		background-color: var(--mono200);
+		border-radius: variables.size(s);
+		padding: variables.size(s) variables.size(m);
+		transition: background-color ease 250ms;
+	}
+
+	.balance,
+	.account {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		text-align: center;
+		padding: variables.size(m);
+
+		+ .section {
+			margin-top: variables.size(l);
+		}
+	}
+
+	.accountDetail {
+		text-align: left;
+
+		.accountName {
+			margin-bottom: variables.size(s);
+		}
+
+		.accountBalance {
+			display: block;
+			font-weight: variables.font-weight(bold);
+			color: var(--mono600);
+
+			&.active {
+				color: var(--positive);
+			}
+		}
+	}
+
+	.actions {
+		button {
+			min-width: auto;
+			width: 40px;
+			padding: variables.size(xs);
+
+			+ button {
+				margin-left: variables.size(s);
+			}
+
+			svg path {
+				fill: var(--white);
+			}
+		}
+	}
+}

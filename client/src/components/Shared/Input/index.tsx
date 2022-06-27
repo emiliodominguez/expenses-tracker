@@ -1,12 +1,11 @@
 import { ChangeEvent, forwardRef, InputHTMLAttributes, useMemo, useState } from 'react';
-import { className, maskInput } from '@app/shared/helpers';
+import { className } from '@app/shared/helpers';
 import { Icon } from '../Icon';
 import styles from './Input.module.scss';
 
 interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
 	error?: string;
 	clearable?: boolean;
-	mask?: string;
 	autoSuggestions?: { [key: string]: string[] };
 	setError?: (error: string) => void;
 }
@@ -22,7 +21,7 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>((props, ref): JSX
 	 * Filters input props
 	 */
 	function getInputProps(): InputHTMLAttributes<HTMLInputElement> {
-		const notInputProps = ['error', 'mask', 'clearable', 'setError', 'autoSuggestions'];
+		const notInputProps = ['error', 'clearable', 'setError', 'autoSuggestions'];
 		const inputPropsKeys = Object.keys(props).filter(key => !notInputProps.includes(key));
 		return inputPropsKeys.reduce((acc, key) => ({ ...acc, [key]: (props as { [key: string]: any })[key] }), {});
 	}
@@ -31,15 +30,7 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>((props, ref): JSX
 	 * Handles the change event
 	 */
 	function handleChange(e: ChangeEvent<HTMLInputElement>): void {
-		setInputText(prev => {
-			if (props.mask) {
-				const isDeleting = prev?.toString?.().length > e.target.value.toString().length;
-				return isDeleting ? e.target.value : maskInput(e.target.value.toString(), props.mask);
-			} else {
-				return e.target.value;
-			}
-		});
-
+		setInputText(e.target.value);
 		props.onChange?.(e);
 	}
 
