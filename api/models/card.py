@@ -9,6 +9,7 @@ class Card(Base):
     id = Column(Integer, primary_key=True, index=True)
     brand = Column(String)
     bank = Column(String)
+    balance = Column(Integer, nullable=True)
     type = Column(String)
     number = Column(Integer)
     expiration_date = Column(Date)

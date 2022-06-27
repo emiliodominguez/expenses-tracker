@@ -6,6 +6,7 @@ class CardBase(BaseModel):
     brand: str
     bank: str
     number: int
+    balance: int = None
     type: str
     expiration_date: date
     user_id: int
