@@ -15,7 +15,6 @@ export function Banks(): JSX.Element {
 	const { currentUser } = useUsersContext();
 	const {
 		accountsData: { data: accounts, loading },
-		cardsData: { data: cards },
 		createAccount,
 		updateAccount,
 		deleteAccount
@@ -85,19 +84,6 @@ export function Banks(): JSX.Element {
 					{/* <li className={styles.section}>Balance</li>
 
 					<li className={styles.balance}></li> */}
-
-					<li className={styles.section}>Cards</li>
-
-					{cards.map(card => (
-						<li key={card.id} className={styles.account}>
-							<div className={styles.accountDetail}>
-								<p className={styles.accountName}>
-									{card.bank} ({card.type})
-								</p>
-								<span className={styles.accountBalance}>{currencyFormatter.format(card.balance ?? 0)}</span>
-							</div>
-						</li>
-					))}
 
 					{Object.entries(accountsMemo).map(([section, sectionAccounts]) => (
 						<Fragment key={section}>

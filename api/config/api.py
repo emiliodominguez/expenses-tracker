@@ -3,9 +3,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi_utils.inferring_router import InferringRouter
 
 API_ORIGINS = [
-    "http://localhost",
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
+    "*"
+    # "http://localhost",
+    # "http://localhost:3000",
+    # "http://127.0.0.1:3000",
 ]
 
 
