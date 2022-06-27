@@ -94,7 +94,7 @@ export function Banks(): JSX.Element {
 								<p className={styles.accountName}>
 									{card.bank} ({card.type})
 								</p>
-								<span {...className(styles.accountBalance, styles.active)}>{currencyFormatter.format(card.balance ?? 0)}</span>
+								<span className={styles.accountBalance}>{currencyFormatter.format(card.balance ?? 0)}</span>
 							</div>
 						</li>
 					))}

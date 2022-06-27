@@ -1,4 +1,4 @@
-import { FormEvent, useState, ChangeEvent, useEffect } from 'react';
+import { FormEvent, useState, ChangeEvent } from 'react';
 import { useUsersContext, useAccountsContext } from '@app/contexts';
 import { getCardBrand } from '@app/shared/helpers';
 import { ICard, TCardPayload } from '@app/models';
