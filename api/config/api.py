@@ -9,7 +9,7 @@ API_ORIGINS = [
 ]
 
 
-API_METHODS = {
+API_TAGS = {
     "GET": "Get Methods",
     "GET_BY_ID": "Get By ID Methods",
     "CREATE": "Create Methods",
@@ -20,22 +20,22 @@ API_METHODS = {
 
 TAGS_METADATA = [
     {
-        "name": API_METHODS["GET"],
+        "name": API_TAGS["GET"],
         "description": "Get all records from any given entity"},
     {
-        "name": API_METHODS["GET_BY_ID"],
+        "name": API_TAGS["GET_BY_ID"],
         "description": "Get a specific record from any given entity"
     },
     {
-        "name": API_METHODS["CREATE"],
+        "name": API_TAGS["CREATE"],
         "description": "Create records from any given entity"
     },
     {
-        "name": API_METHODS["UPDATE"],
+        "name": API_TAGS["UPDATE"],
         "description": "Update records from any given entity"
     },
     {
-        "name": API_METHODS["DELETE"],
+        "name": API_TAGS["DELETE"],
         "description": "Delete records from any given entity"
     },
 ]

@@ -1,14 +1,14 @@
 from typing import List, Union
 from models.movement import Movement
 from schemas.movement import MovementBase, MovementSchema
-from config.api import router, API_METHODS
+from config.api import router, API_TAGS
 from shared import crud
 
 
 class MovementsController:
     """## The Movements route controller"""
 
-    @router.get("/movements/{user_id}", tags=[API_METHODS["GET"]])
+    @router.get("/movements/{user_id}", tags=[API_TAGS["GET"]])
     def get_movements(user_id: int) -> List[MovementSchema]:
         """## Gets all user movements
 
@@ -20,7 +20,7 @@ class MovementsController:
         """
         return crud.get_many_filtered(Movement, Movement.user_id == user_id)
 
-    @router.get("/movements/{movement_id}", tags=[API_METHODS["GET_BY_ID"]])
+    @router.get("/movements/{movement_id}", tags=[API_TAGS["GET_BY_ID"]])
     def get_movement_by_id(movement_id: int) -> Union[MovementSchema, None]:
         """## Gets a movement by ID
 
@@ -32,7 +32,7 @@ class MovementsController:
         """
         return crud.get_one_by_id(Movement, movement_id)
 
-    @router.post("/movements", tags=[API_METHODS["CREATE"]])
+    @router.post("/movements", tags=[API_TAGS["CREATE"]])
     def create_movement(payload: MovementBase) -> MovementSchema:
         """## Creates a movement
 
@@ -44,7 +44,7 @@ class MovementsController:
         """
         return crud.create(Movement, payload)
 
-    @router.put("/movements/{movement_id}", tags=[API_METHODS["UPDATE"]])
+    @router.put("/movements/{movement_id}", tags=[API_TAGS["UPDATE"]])
     def edit_movement(movement_id: int, payload: MovementBase) -> MovementSchema:
         """## Edits a movement
 
@@ -57,7 +57,7 @@ class MovementsController:
         """
         return crud.edit(Movement, movement_id, payload)
 
-    @router.delete("/movements/{movement_id}", tags=[API_METHODS["DELETE"]])
+    @router.delete("/movements/{movement_id}", tags=[API_TAGS["DELETE"]])
     def delete_movement(movement_id: int) -> MovementSchema:
         """## Deletes a movement
 

@@ -1,14 +1,14 @@
 from typing import List, Union
 from models.category import Category
 from schemas.category import CategoryBase, CategorySchema
-from config.api import router, API_METHODS
+from config.api import router, API_TAGS
 from shared import crud
 
 
 class CategoriesController:
     """## The Categories route controller"""
 
-    @router.get("/categories", tags=[API_METHODS["GET"]])
+    @router.get("/categories", tags=[API_TAGS["GET"]])
     def get_categories() -> List[CategorySchema]:
         """## Gets all categories
 
@@ -17,7 +17,7 @@ class CategoriesController:
         """
         return crud.get_many(Category)
 
-    @router.get("/categories/{category_id}", tags=[API_METHODS["GET_BY_ID"]])
+    @router.get("/categories/{category_id}", tags=[API_TAGS["GET_BY_ID"]])
     def get_category_by_id(category_id: int) -> Union[CategorySchema, None]:
         """## Gets a category by ID
 
@@ -29,7 +29,7 @@ class CategoriesController:
         """
         return crud.get_one_by_id(Category, category_id)
 
-    @router.post("/categories", tags=[API_METHODS["CREATE"]])
+    @router.post("/categories", tags=[API_TAGS["CREATE"]])
     def create_category(payload: CategoryBase) -> CategorySchema:
         """## Creates a category
 
@@ -41,7 +41,7 @@ class CategoriesController:
         """
         return crud.create(Category, payload)
 
-    @router.put("/categories/{category_id}", tags=[API_METHODS["UPDATE"]])
+    @router.put("/categories/{category_id}", tags=[API_TAGS["UPDATE"]])
     def edit_category(category_id: int, payload: CategoryBase) -> CategorySchema:
         """## Edits a category
 
@@ -54,7 +54,7 @@ class CategoriesController:
         """
         return crud.edit(Category, category_id, payload)
 
-    @router.delete("/categories/{category_id}", tags=[API_METHODS["DELETE"]])
+    @router.delete("/categories/{category_id}", tags=[API_TAGS["DELETE"]])
     def delete_category(category_id: int) -> CategorySchema:
         """## Deletes a category
 

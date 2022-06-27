@@ -1,14 +1,14 @@
 from typing import List, Union
 from models.card import Card
 from schemas.card import CardBase, CardSchema
-from config.api import router, API_METHODS
+from config.api import router, API_TAGS
 from shared import crud
 
 
 class CardsController:
     """The Cards route controller"""
 
-    @router.get("/cards/{user_id}", tags=[API_METHODS["GET"]])
+    @router.get("/cards/{user_id}", tags=[API_TAGS["GET"]])
     def get_cards(user_id: int) -> List[CardSchema]:
         """## Gets all user cards
 
@@ -17,7 +17,7 @@ class CardsController:
         """
         return crud.get_many_filtered(Card, Card.user_id == user_id)
 
-    @router.get("/cards/{card_id}", tags=[API_METHODS["GET_BY_ID"]])
+    @router.get("/cards/{card_id}", tags=[API_TAGS["GET_BY_ID"]])
     def get_card_by_id(card_id: int) -> Union[CardSchema, None]:
         """## Gets an card by ID
 
@@ -29,7 +29,7 @@ class CardsController:
         """
         return crud.get_one_by_id(Card, card_id)
 
-    @router.post("/cards", tags=[API_METHODS["CREATE"]])
+    @router.post("/cards", tags=[API_TAGS["CREATE"]])
     def create_card(payload: CardBase) -> CardSchema:
         """## Creates an card
 
@@ -41,7 +41,7 @@ class CardsController:
         """
         return crud.create(Card, payload)
 
-    @router.put("/cards/{card_id}", tags=[API_METHODS["UPDATE"]])
+    @router.put("/cards/{card_id}", tags=[API_TAGS["UPDATE"]])
     def edit_card(card_id: int, payload: CardBase) -> CardSchema:
         """## Edits an card
 
@@ -54,7 +54,7 @@ class CardsController:
         """
         return crud.edit(Card, card_id, payload)
 
-    @router.delete("/cards/{card_id}", tags=[API_METHODS["DELETE"]])
+    @router.delete("/cards/{card_id}", tags=[API_TAGS["DELETE"]])
     def delete_card(card_id: int) -> CardSchema:
         """## Deletes an card
 

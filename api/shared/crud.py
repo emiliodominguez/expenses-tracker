@@ -1,4 +1,4 @@
-from typing import List, Union, TypeVar
+from typing import Any, List, Union, TypeVar
 from http.client import HTTPException
 from config.db import session
 
@@ -20,7 +20,7 @@ def get_many(model: Model) -> List[Schema]:
     return session.query(model).all()
 
 
-def get_many_filtered(model: Model, condition: bool) -> List[Schema]:
+def get_many_filtered(model: Model, condition: Any) -> List[Schema]:
     """## Gets filtered records of any given model
 
     Args:
