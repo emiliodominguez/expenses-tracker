@@ -3,7 +3,10 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 # Engine
-engine = create_engine('sqlite:///expense-tracker.sqlite')
+engine = create_engine(
+    'sqlite:///expense-tracker.sqlite',
+    connect_args={"check_same_thread": False}
+)
 
 # Session
 Session = sessionmaker(bind=engine)

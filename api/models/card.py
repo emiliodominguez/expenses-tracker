@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, String, Date, ForeignKey
+from sqlalchemy.orm import relationship
 from config.db import Base
 
 
@@ -14,4 +15,4 @@ class Card(Base):
 
     user_id = Column(Integer, ForeignKey("users.id"))
 
-    # user = relationship("User", backref="user")
+    user = relationship("User", backref="user_cards")
