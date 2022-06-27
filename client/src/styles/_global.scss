@@ -1,3 +1,5 @@
+@use './variables';
+
 *,
 *::before,
 *::after {
@@ -19,4 +21,11 @@ body {
 		background-color: var(--mono1000);
 		color: var(--white);
 	}
+}
+
+.page-title {
+	font-size: clamp(40px, 5vw, 50px);
+	font-weight: variables.font-weight(light);
+	margin-bottom: variables.size(xl);
+	text-align: center;
 }

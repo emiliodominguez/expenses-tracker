@@ -28,10 +28,7 @@
 	&.primary {
 		background-color: var(--primary);
 
-		&:hover {
-			background-color: var(--primary500);
-		}
-
+		&:hover,
 		&:focus {
 			background-color: var(--primary600);
 		}
@@ -41,7 +38,7 @@
 		}
 
 		&:disabled {
-			background-color: var(--primary50);
+			background-color: var(--primary100);
 			color: var(--primary100);
 		}
 	}
@@ -50,10 +47,7 @@
 		background-color: var(--white);
 		color: var(--primary);
 
-		&:hover {
-			color: var(--primary500);
-		}
-
+		&:hover,
 		&:focus {
 			color: var(--primary600);
 		}

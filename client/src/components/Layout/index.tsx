@@ -7,6 +7,7 @@ import { Icon } from '../Shared';
 import styles from './Layout.module.scss';
 
 interface ILayoutProps {
+	title: string;
 	className?: string;
 }
 
@@ -30,7 +31,10 @@ export default function Layout(props: PropsWithChildren<ILayoutProps>): JSX.Elem
 				</button>
 			</header>
 
-			<main {...className(styles.main, props.className)}>{props.children}</main>
+			<main {...className(styles.main, props.className)}>
+				<h2 className="page-title">{props.title}</h2>
+				{props.children}
+			</main>
 		</>
 	);
 }

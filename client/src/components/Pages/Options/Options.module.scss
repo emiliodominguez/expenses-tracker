@@ -1,0 +1,43 @@
+@use '@app/styles/variables';
+
+.wrapper {
+	max-width: 500px;
+	margin: 0 auto;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	> * + * {
+		margin-top: variables.size(xl);
+	}
+}
+
+.colorPicker {
+	display: flex;
+	align-items: center;
+
+	input {
+		$input-size: clamp(30px, 5vw, 40px);
+
+		width: $input-size;
+		height: $input-size;
+		padding: variables.size(xs);
+		border: none;
+		border-radius: 50%;
+		margin-right: variables.size(s);
+		overflow: hidden;
+		-webkit-appearance: none;
+		cursor: pointer;
+
+		&::-webkit-color-swatch-wrapper {
+			padding: 0;
+		}
+
+		&::-webkit-color-swatch {
+			border: none;
+			border-radius: 50%;
+		}
+	}
+}

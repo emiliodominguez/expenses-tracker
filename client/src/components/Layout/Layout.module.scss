@@ -3,20 +3,23 @@
 
 :global(.dark-theme) {
 	.header {
-		nav {
-			a {
-				color: var(--mono300);
+		nav a {
+			color: var(--mono600);
 
-				&:hover {
-					color: var(--primary200);
+			&:global(.active),
+			&:hover {
+				color: var(--white);
+			}
+
+			&:global(.active) {
+				&::after {
+					background-color: var(--white);
 				}
+			}
 
-				&:global(.active) {
-					color: var(--primary300);
-
-					&::after {
-						background-color: var(--primary300);
-					}
+			&:not(:global(.active)) {
+				&.inactive {
+					opacity: 0.5;
 				}
 			}
 		}
@@ -60,7 +63,7 @@
 
 			&:not(:global(.active)) {
 				&.inactive {
-					opacity: 0.25;
+					opacity: 0.5;
 					pointer-events: none;
 				}
 			}
@@ -110,10 +113,8 @@
 				opacity: 0.75;
 			}
 
-			svg {
-				path {
-					fill: var(--mono100);
-				}
+			svg path {
+				fill: var(--mono100);
 			}
 		}
 

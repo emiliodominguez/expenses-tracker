@@ -1,9 +1,9 @@
 import { Users, Accounts, Movements, Stats, Options } from '@app/components/Pages';
 
-export const routes = {
+export const routes = Object.freeze({
 	users: { url: '/', label: 'Users', element: <Users /> },
 	accounts: { url: '/accounts', label: 'Accounts', element: <Accounts /> },
 	movements: { url: '/movements', label: 'Movements', element: <Movements /> },
 	stats: { url: '/stats', label: 'Stats', element: <Stats /> },
-	options: { url: '/options', label: 'Options', element: <Options /> }
-};
+	options: { url: '/options', label: 'Options', element: <Options />, public: true }
+});

@@ -27,7 +27,7 @@ export function Accounts(): JSX.Element {
 	}
 
 	return (
-		<Layout className={styles.accountsPage}>
+		<Layout title="Accounts" className={styles.accountsPage}>
 			{loading && <Spinner className={styles.spinner} />}
 
 			{!loading && accounts?.length === 0 && <h2>No accounts to list...</h2>}

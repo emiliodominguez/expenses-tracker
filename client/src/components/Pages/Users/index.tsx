@@ -28,7 +28,7 @@ export function Users(): JSX.Element {
 	}
 
 	return (
-		<Layout className={styles.usersPage}>
+		<Layout title="Users" className={styles.usersPage}>
 			{loading && <Spinner className={styles.spinner} />}
 
 			{!loading && users && (
