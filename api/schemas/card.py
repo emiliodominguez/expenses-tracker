@@ -5,8 +5,8 @@ from datetime import date
 class CardBase(BaseModel):
     brand: str
     bank: str
-    number: str
-    type: int
+    number: int
+    type: str
     expiration_date: date
     user_id: int
 

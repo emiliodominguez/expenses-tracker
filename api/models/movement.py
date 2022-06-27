@@ -14,9 +14,9 @@ class Movement(Base):
     note = Column(String, nullable=True)
 
     user_id = Column(Integer, ForeignKey("users.id"))
-    category_id = Column(Integer, ForeignKey("categories.id"))
     account_id = Column(Integer, ForeignKey("accounts.id"))
-    card_id = Column(Integer, ForeignKey("cards.id"))
+    card_id = Column(Integer, ForeignKey("cards.id"), nullable=True)
+    category_id = Column(Integer, ForeignKey("categories.id"), nullable=True)
 
     user = relationship("User", backref="user_movements")
     category = relationship("Category", backref="category_movements")
