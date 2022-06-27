@@ -1,4 +1,4 @@
-import { FormEvent, useRef } from 'react';
+import { MouseEvent, FormEvent, useRef } from 'react';
 import Layout from '@app/components/Layout';
 import { useUsersContext, useAccountsContext } from '@app/contexts';
 import { IAccount, TAccountPayload } from '@app/models';
@@ -12,6 +12,12 @@ export function Accounts(): JSX.Element {
 	const { accounts, loading, createAccount, updateAccount, deleteAccount } = useAccountsContext();
 	const { modalProps, openModal, closeModal } = useModal<{ account?: IAccount }>();
 	const activeInputRef = useRef<HTMLInputElement>(null);
+
+	function handleAccountAction(e: MouseEvent<HTMLButtonElement>, type: 'edit' | 'delete', account: IAccount): void {
+		e.stopPropagation();
+		if (type === 'edit') openModal({ account });
+		if (type === 'delete') deleteAccount(account.id);
+	}
 
 	function handleFormSubmit(e: FormEvent): void {
 		e.preventDefault();
@@ -32,47 +38,34 @@ export function Accounts(): JSX.Element {
 		<Layout title="Accounts" className={styles.accountsPage}>
 			{loading && <Spinner className={styles.spinner} />}
 
-			{!loading && accounts?.length === 0 && <h2 className={styles.noRecordsMessage}>No accounts to list...</h2>}
+			{!loading && accounts?.length === 0 && <h2 className="no-records-message">No accounts to list...</h2>}
 
 			{!loading && accounts?.length > 0 && (
-				<>
-					<ul className={styles.accounts}>
-						<li className={styles.addAccountBtn}>
-							<Button title="Add account" onClick={() => openModal({})}>
-								<Icon name="add" size={25} />
-							</Button>
+				<ul className={styles.accounts}>
+					{accounts.map(account => (
+						<li key={account.id} className={styles.account}>
+							<p className={styles.detail}>
+								<b>{account.name}</b>
+								<span className={styles.balance}>{currencyFormatter.format(account.balance)}</span>
+							</p>
+
+							<div className={styles.actions}>
+								<Button onClick={e => handleAccountAction(e, 'edit', account)}>
+									<Icon name="pencil" />
+								</Button>
+
+								<Button kind="negative" onClick={e => handleAccountAction(e, 'delete', account)}>
+									<Icon name="trashCan" />
+								</Button>
+							</div>
 						</li>
-
-						{accounts.map(account => (
-							<li key={account.id} className={styles.account}>
-								<p className={styles.detail}>
-									<b>{account.name}</b>
-									<span className={styles.balance}>{currencyFormatter.format(account.balance)}</span>
-								</p>
-
-								<div className={styles.actions}>
-									<Button
-										onClick={e => {
-											e.stopPropagation();
-											openModal({ account });
-										}}>
-										<Icon name="pencil" />
-									</Button>
-
-									<Button
-										kind="negative"
-										onClick={e => {
-											e.stopPropagation();
-											deleteAccount(account.id);
-										}}>
-										<Icon name="trashCan" />
-									</Button>
-								</div>
-							</li>
-						))}
-					</ul>
-				</>
+					))}
+				</ul>
 			)}
+
+			<Button className="floating-action" title="Add account" onClick={() => openModal({})}>
+				<Icon name="add" size={25} />
+			</Button>
 
 			{/* Add/edit user account */}
 			{modalProps && (

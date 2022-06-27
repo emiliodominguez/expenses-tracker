@@ -20,43 +20,18 @@
 	bottom: var(--header-height);
 }
 
-.noRecordsMessage {
-	text-align: center;
-	font-weight: variables.font-weight(light);
-	color: var(--mono600);
-}
-
 .accounts {
 	width: 100%;
 	max-width: 500px;
 	margin: 0 auto;
 	list-style: none;
 
-	li {
+	.account {
 		display: flex;
 		align-items: center;
+		justify-content: space-between;
 		padding: variables.size(m);
 		text-align: center;
-	}
-
-	.addAccountBtn {
-		justify-content: center;
-
-		button {
-			background-color: var(--primary);
-
-			svg {
-				margin: 0 auto;
-
-				path {
-					fill: var(--white);
-				}
-			}
-		}
-	}
-
-	.account {
-		justify-content: space-between;
 
 		.detail {
 			text-align: left;
