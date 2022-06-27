@@ -27,7 +27,12 @@ export function Options(): JSX.Element {
 					Accent theme color
 				</label>
 
-				<Checkbox label={`Dark theme ${darkThemeActive ? 'active' : 'inactive'}`} checked={darkThemeActive} onChange={toggleDarkTheme} />
+				<Checkbox
+					key={`${darkThemeActive ? 'Dark' : 'Light'} theme`}
+					label={`Dark theme ${darkThemeActive ? 'active' : 'inactive'}`}
+					checked={darkThemeActive}
+					onChange={toggleDarkTheme}
+				/>
 			</div>
 		</Layout>
 	);
