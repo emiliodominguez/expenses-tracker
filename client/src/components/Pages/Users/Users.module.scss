@@ -3,7 +3,7 @@
 
 :global(.dark-theme) {
 	.users {
-		li {
+		.user {
 			background-color: var(--mono900);
 			color: var(--mono200);
 
@@ -40,11 +40,11 @@
 				}
 			}
 		}
+	}
 
-		.addUserBtn {
-			svg path {
-				fill: var(--mono300);
-			}
+	.addUserBtn {
+		svg path {
+			fill: var(--mono300);
 		}
 	}
 }
@@ -69,38 +69,34 @@
 	$btn-size: 150px;
 	$initials-size: 65px;
 	$initials-font-size: 35px;
+	$gap: variables.size(m);
 
 	width: 100%;
-	max-width: $btn-size * 4;
+	max-width: ($btn-size + $gap) * 3;
 	list-style: none;
 	padding-bottom: var(--header-height);
 
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax($btn-size, 1fr));
-	grid-gap: variables.size(m);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: $gap;
 
-	li {
+	.user {
 		width: 100%;
 		min-height: $btn-size;
+		max-width: $btn-size;
 		background-color: var(--primary);
 		border-radius: variables.size(s);
 		padding: variables.size(l);
 		box-shadow: variables.shadow(400), variables.shadow(400);
 		transition: background-color ease 250ms;
-		cursor: pointer;
-
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-	}
-
-	.user {
 		font-size: variables.size(m);
 		color: var(--mono200);
 		text-align: center;
 		overflow: hidden;
 		z-index: variables.z-index(basic);
+		cursor: pointer;
 
 		&:hover {
 			color: var(--mono1000);
@@ -163,13 +159,6 @@
 		}
 	}
 
-	.userActions,
-	.addUserBtn {
-		svg path {
-			transition: fill ease 250ms;
-		}
-	}
-
 	.userActions {
 		display: flex;
 		align-items: center;
@@ -192,25 +181,7 @@
 		svg {
 			path {
 				fill: var(--mono300);
-			}
-		}
-	}
-
-	.addUserBtn {
-		height: 100%;
-
-		&:hover {
-			svg {
-				transform: scale(1.5) rotate(90deg);
-			}
-		}
-
-		svg {
-			margin: 0 auto;
-			transition: transform ease 250ms;
-
-			path {
-				fill: var(--mono200);
+				transition: fill ease 250ms;
 			}
 		}
 	}

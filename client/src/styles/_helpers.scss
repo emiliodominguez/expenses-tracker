@@ -1,0 +1,45 @@
+@use './variables';
+
+.page-title {
+	font-size: clamp(40px, 5vw, 50px);
+	font-weight: variables.font-weight(light);
+	margin-bottom: variables.size(xl);
+	text-align: center;
+}
+
+.no-records-message {
+	text-align: center;
+	font-weight: variables.font-weight(light);
+	color: var(--mono600);
+}
+
+.floating-action {
+	$offset: 15px;
+	$size: 50px;
+
+	position: fixed;
+	bottom: $offset;
+	right: $offset;
+	min-width: auto;
+	min-height: auto;
+	width: $size;
+	height: $size;
+	border-radius: 50%;
+	box-shadow: variables.shadow(500), variables.shadow(500);
+
+	&:hover {
+		svg {
+			transform: scale(1.1) rotate(90deg);
+		}
+	}
+
+	svg {
+		margin: 0 auto;
+		transition: transform ease 250ms;
+
+		path {
+			fill: var(--mono200);
+			transition: fill ease 250ms;
+		}
+	}
+}

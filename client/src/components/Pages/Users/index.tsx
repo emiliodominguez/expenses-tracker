@@ -31,6 +31,8 @@ export function Users(): JSX.Element {
 		<Layout title="Users" className={styles.usersPage}>
 			{loading && <Spinner className={styles.spinner} />}
 
+			{!loading && users?.length === 0 && <h2 className="no-records-message">No users to list...</h2>}
+
 			{!loading && users && (
 				<ul className={styles.users}>
 					{users.map(user => (
@@ -64,12 +66,12 @@ export function Users(): JSX.Element {
 							</div>
 						</li>
 					))}
-
-					<li title="Add new user" className={styles.addUserBtn} onClick={() => openModal({})}>
-						<Icon name="add" size={40} />
-					</li>
 				</ul>
 			)}
+
+			<Button title="Add new user" className="floating-action" onClick={() => openModal({})}>
+				<Icon name="add" size={25} />
+			</Button>
 
 			{/* Add/edit user modal */}
 			{modalProps && (
@@ -79,7 +81,7 @@ export function Users(): JSX.Element {
 					<form onSubmit={handleFormSubmit}>
 						<Input type="text" name="name" value={modalProps.user?.name} placeholder="Set the user's name" required />
 						<Input type="email" name="email" value={modalProps.user?.email} placeholder="Set the user's email" required />
-						<Input type="date" name="birthDate" value={modalProps.user?.birth_date} required />
+						<Input type="date" name="birth_date" value={modalProps.user?.birth_date} required />
 						<Button type="submit">{`${modalProps?.user ? 'Edit' : 'Add'} user`}</Button>
 					</form>
 				</Modal>
