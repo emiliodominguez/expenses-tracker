@@ -1,5 +1,5 @@
-from config import api, router, db
+from config import init_app, init_db, set_routes
 
-app = api.init_app()
-router.set_routes()
-db.init_db()
+app = init_app()
+init_db()
+set_routes()

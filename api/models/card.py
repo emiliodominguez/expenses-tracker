@@ -16,4 +16,4 @@ class Card(Base):
 
     user_id = Column(Integer, ForeignKey("users.id"))
 
-    user = relationship("User", backref="user_cards")
+    user = relationship("User", backref="cards")

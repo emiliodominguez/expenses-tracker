@@ -17,6 +17,6 @@ class Movement(Base):
     account_id = Column(Integer, ForeignKey("accounts.id"))
     category_id = Column(Integer, ForeignKey("categories.id"), nullable=True)
 
-    user = relationship("User", backref="user_movements")
-    category = relationship("Category", backref="category_movements")
-    account = relationship("Account", backref="account_movements")
+    user = relationship("User", backref="movements")
+    category = relationship("Category", backref="movements")
+    account = relationship("Account", backref="movements")

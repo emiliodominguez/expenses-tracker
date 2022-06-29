@@ -1,5 +1,7 @@
+from typing import List
 from pydantic import BaseModel
 from datetime import date
+from schemas import AccountSchema, CardSchema
 
 
 class UserBase(BaseModel):
@@ -10,6 +12,8 @@ class UserBase(BaseModel):
 
 class UserSchema(UserBase):
     id: int
+    accounts: List[AccountSchema]
+    cards: List[CardSchema]
 
     class Config:
         orm_mode = True
