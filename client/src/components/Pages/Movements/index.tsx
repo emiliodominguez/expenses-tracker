@@ -15,9 +15,7 @@ enum MovementType {
 
 export function Movements(): JSX.Element {
 	const { currentUser } = useUsersContext();
-	const {
-		accountsData: { data: accounts }
-	} = useAccountsContext();
+	const { accounts } = useAccountsContext();
 	const {
 		movementsData: { data: movements, loading },
 		createMovement,
@@ -140,7 +138,7 @@ export function Movements(): JSX.Element {
 
 						<Input type="date" name="date" value={modalProps.movement?.date} required />
 
-						<Button type="submit">{`${modalProps?.movement ? 'Edit' : 'Add'} movement`}</Button>
+						<Button type="submit">{`${modalProps?.editMode ? 'Edit' : 'Add'} movement`}</Button>
 
 						{modalProps.editMode && (
 							<Button kind="negative" className={styles.deleteBtn} onClick={() => deleteMovement(modalProps.movement!.id)}>

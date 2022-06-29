@@ -34,6 +34,7 @@ $_card-height: 185px;
 
 .card {
 	position: relative;
+	min-width: $_card-width;
 	max-width: $_card-width;
 	height: $_card-height;
 	padding: variables.size(m);

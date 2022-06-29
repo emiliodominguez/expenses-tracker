@@ -7,10 +7,8 @@ import { IRequestPayload, IUser, TUserPayload } from '@app/models';
 import { routes } from '@app/config';
 
 interface IUsersContext {
-	users: IUser[];
-	loading: boolean;
+	usersData: IRequestPayload<IUser>;
 	currentUser: IUser | null;
-	error?: Error;
 	setCurrentUser: (user: IUser) => void;
 	createUser: (payload: TUserPayload) => Promise<IUser>;
 	updateUser: (id: number, payload: TUserPayload) => Promise<IUser>;
@@ -84,9 +82,7 @@ export function UsersContextProvider(props: PropsWithChildren<{}>): JSX.Element 
 	return (
 		<UsersContext.Provider
 			value={{
-				users: usersData.data,
-				loading: usersData.loading,
-				error: usersData.error,
+				usersData,
 				currentUser,
 				setCurrentUser,
 				createUser,

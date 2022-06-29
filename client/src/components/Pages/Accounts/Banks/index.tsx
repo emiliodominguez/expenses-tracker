@@ -3,7 +3,7 @@ import { useUsersContext, useAccountsContext } from '@app/contexts';
 import { className } from '@app/shared/helpers';
 import { currencyFormatter } from '@app/shared/constants';
 import { IAccount, TAccountPayload } from '@app/models';
-import { Spinner, Modal, Input, Button, useModal, Checkbox, Icon } from '@app/components/Shared';
+import { Modal, Input, Button, useModal, Checkbox, Icon } from '@app/components/Shared';
 import styles from './Banks.module.scss';
 
 type TAccountsAccumulator = { [key: string]: IAccount[] };
@@ -12,12 +12,7 @@ type TBalance = { [key: string]: any };
 
 export function Banks(): JSX.Element {
 	const { currentUser } = useUsersContext();
-	const {
-		accountsData: { data: accounts, loading },
-		createAccount,
-		updateAccount,
-		deleteAccount
-	} = useAccountsContext();
+	const { accounts, createAccount, updateAccount, deleteAccount } = useAccountsContext();
 	const { modalProps, openModal, closeModal } = useModal<{ account?: IAccount }>();
 	const activeInputRef = useRef<HTMLInputElement>(null);
 	const accountsBalance = useMemo(getAccountsBalance, [accounts]);
@@ -74,11 +69,9 @@ export function Banks(): JSX.Element {
 
 	return (
 		<>
-			{loading && <Spinner />}
+			{accounts?.length === 0 && <h2 className="no-records-message">No accounts to list...</h2>}
 
-			{!loading && accounts?.length === 0 && <h2 className="no-records-message">No accounts to list...</h2>}
-
-			{!loading && accounts?.length > 0 && (
+			{accounts?.length > 0 && (
 				<ul className={styles.accounts}>
 					{/* <li className={styles.section}>Balance</li>
 
@@ -143,7 +136,7 @@ export function Banks(): JSX.Element {
 						<Input
 							name="type"
 							value={modalProps.account?.type}
-							autoSuggestions={{ accountTypes: Object.keys(accountsMemo) }}
+							autoSuggestions={{ accounts: Object.keys(accountsMemo) }}
 							placeholder="Set the account's type"
 							required
 						/>

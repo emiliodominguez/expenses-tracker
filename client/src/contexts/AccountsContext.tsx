@@ -3,12 +3,12 @@ import { useInjection } from 'inversify-react';
 import type AccountsService from '@app/services/accounts.service';
 import type CardsService from '@app/services/cards.service';
 import { Services } from '@app/services/services.enum';
-import { IRequestPayload, IAccount, TAccountPayload, ICard, TCardPayload } from '@app/models';
+import { IAccount, TAccountPayload, ICard, TCardPayload } from '@app/models';
 import { useUsersContext } from './UsersContext';
 
 interface IAccountsContext {
-	accountsData: IRequestPayload<IAccount>;
-	cardsData: IRequestPayload<ICard>;
+	accounts: IAccount[];
+	cards: ICard[];
 	createAccount: (payload: TAccountPayload) => Promise<IAccount>;
 	updateAccount: (id: number, payload: TAccountPayload) => Promise<IAccount>;
 	deleteAccount: (id: number) => Promise<IAccount>;
@@ -21,103 +21,77 @@ const AccountsContext = createContext<IAccountsContext>({} as IAccountsContext);
 
 export function AccountsContextProvider(props: PropsWithChildren<{}>): JSX.Element {
 	const { currentUser } = useUsersContext();
-	const [accountsData, setAccountsData] = useState<IRequestPayload<IAccount>>({ data: [], loading: true });
-	const [cardsData, setCardsData] = useState<IRequestPayload<ICard>>({ data: [], loading: true });
+	const [accounts, setAccounts] = useState<IAccount[]>([]);
+	const [cards, setCards] = useState<ICard[]>([]);
 	const accountsService = useInjection<AccountsService>(Services.AccountsService);
 	const cardsService = useInjection<CardsService>(Services.CardsService);
 
 	//#region Accounts
-	function getAccounts(): { abortController?: AbortController } {
-		if (!currentUser) return {};
-
-		const abortController = new AbortController();
-
-		setAccountsData(prev => ({ ...prev, loading: true, error: undefined }));
-
-		try {
-			accountsService.get(currentUser.id, abortController.signal).then(data => {
-				if (data) setAccountsData({ data, loading: false, error: undefined });
-			});
-		} catch (error) {
-			setAccountsData(prev => ({ ...prev, loading: false, error: error as Error }));
-		}
-
-		return { abortController };
+	async function getAccounts(): Promise<void> {
+		if (!currentUser) return;
+		const data = await accountsService.get(currentUser.id);
+		if (data) setAccounts(data);
 	}
 
 	async function createAccount(payload: TAccountPayload): Promise<IAccount> {
-		const createdAccount = await accountsService.create(payload);
-		getAccounts();
-		return createdAccount;
+		const account = await accountsService.create(payload);
+		await getAccounts();
+		return account;
 	}
 
 	async function updateAccount(id: number, payload: TAccountPayload): Promise<IAccount> {
-		const updatedAccount = await accountsService.update(id, payload);
-		getAccounts();
-		return updatedAccount;
+		const account = await accountsService.update(id, payload);
+		await getAccounts();
+		return account;
 	}
 
 	async function deleteAccount(id: number): Promise<IAccount> {
-		const deletedAccount = await accountsService.delete(id);
-		getAccounts();
-		return deletedAccount;
+		const account = await accountsService.delete(id);
+		await getAccounts();
+		return account;
 	}
 	//#endregion
 
 	//#region Cards
-	function getCards(): { abortController?: AbortController } {
-		if (!currentUser) return {};
-
-		const abortController = new AbortController();
-
-		setCardsData(prev => ({ ...prev, loading: true, error: undefined }));
-
-		try {
-			cardsService.get(currentUser.id, abortController.signal).then(data => {
-				if (data) setCardsData({ data, loading: false, error: undefined });
-			});
-		} catch (error) {
-			setCardsData(prev => ({ ...prev, loading: false, error: error as Error }));
-		}
-
-		return { abortController };
+	async function getCards(): Promise<void> {
+		if (!currentUser) return;
+		const data = await cardsService.get(currentUser.id);
+		if (data) setCards(data);
 	}
 
 	async function createCard(payload: TCardPayload): Promise<ICard> {
-		const createdCard = await cardsService.create(payload);
-		getCards();
-		return createdCard;
+		const card = await cardsService.create(payload);
+		await getCards();
+		return card;
 	}
 
 	async function updateCard(id: number, payload: TCardPayload): Promise<ICard> {
-		const updatedCard = await cardsService.update(id, payload);
-		getCards();
-		return updatedCard;
+		const card = await cardsService.update(id, payload);
+		await getCards();
+		return card;
 	}
 
 	async function deleteCard(id: number): Promise<ICard> {
-		const deletedAccount = await cardsService.delete(id);
-		getAccounts();
-		return deletedAccount;
+		const card = await cardsService.delete(id);
+		await getCards();
+		return card;
 	}
 	//#endregion
 
+	//#region Initial setup
 	useEffect(() => {
-		const { abortController: getAccountsController } = getAccounts();
-		const { abortController: getCardsController } = getCards();
-
-		return () => {
-			getAccountsController?.abort();
-			getCardsController?.abort();
-		};
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+		if (currentUser) {
+			setAccounts(currentUser.accounts ?? []);
+			setCards(currentUser.cards ?? []);
+		}
 	}, [currentUser]);
+	//#endregion
 
 	return (
 		<AccountsContext.Provider
 			value={{
-				accountsData,
-				cardsData,
+				accounts,
+				cards,
 				createAccount,
 				updateAccount,
 				deleteAccount,

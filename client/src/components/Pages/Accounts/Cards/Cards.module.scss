@@ -7,9 +7,11 @@
 }
 
 .cards {
+	max-width: 650px;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
 	gap: variables.size(xl);
+	margin: 0 auto;
 }

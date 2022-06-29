@@ -2,17 +2,12 @@ import { FormEvent, useState, ChangeEvent } from 'react';
 import { useUsersContext, useAccountsContext } from '@app/contexts';
 import { getCardBrand } from '@app/shared/helpers';
 import { ICard, TCardPayload } from '@app/models';
-import { Spinner, Modal, Input, Button, useModal, Icon, Card, TCardData, Select } from '@app/components/Shared';
+import { Modal, Input, Button, useModal, Icon, Card, TCardData, Select } from '@app/components/Shared';
 import styles from './Cards.module.scss';
 
 export function Cards(): JSX.Element {
 	const { currentUser } = useUsersContext();
-	const {
-		cardsData: { data: cards, loading },
-		createCard,
-		updateCard,
-		deleteCard
-	} = useAccountsContext();
+	const { accounts, cards, createCard, updateCard, deleteCard } = useAccountsContext();
 	const { modalProps, openModal, closeModal } = useModal<{ card?: ICard }>();
 	const [modalCardData, setModalCardData] = useState<TCardData | null>(null);
 
@@ -58,11 +53,9 @@ export function Cards(): JSX.Element {
 
 	return (
 		<>
-			{loading && <Spinner />}
+			{cards?.length === 0 && <h2 className="no-records-message">No cards to list...</h2>}
 
-			{!loading && cards?.length === 0 && <h2 className="no-records-message">No cards to list...</h2>}
-
-			{!loading && cards?.length > 0 && (
+			{cards?.length > 0 && (
 				<div className={styles.cards}>
 					{cards.map(card => {
 						const { month, year } = getCardExpirationDate(card.expiration_date);
@@ -112,7 +105,13 @@ export function Cards(): JSX.Element {
 							required
 						/>
 
-						<Input name="bank" value={modalProps.card?.bank} placeholder="Set the card's bank" required />
+						<Input
+							name="bank"
+							value={modalProps.card?.bank}
+							autoSuggestions={{ accounts: accounts.map(account => account.name) }}
+							placeholder="Set the card's bank"
+							required
+						/>
 
 						<Select
 							name="type"

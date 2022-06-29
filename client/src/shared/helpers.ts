@@ -61,9 +61,9 @@ export function getCardBrand(number?: number | string): CardBrand | null {
 		case !!cardNumber.match(new RegExp(cardTypesRegExps.amex)):
 			return { name: 'AMEX', asset: 'amex.png' };
 		case !!cardNumber.match(new RegExp(cardTypesRegExps.diners)):
-			return { name: 'Diners', asset: 'dinners.png' };
+			return { name: 'Diners', asset: 'diners.png' };
 		case !!cardNumber.match(new RegExp(cardTypesRegExps.dinersCarteBlanche)):
-			return { name: 'Diners - Carte Blanche', asset: 'dinners.png' };
+			return { name: 'Diners - Carte Blanche', asset: 'diners.png' };
 		default:
 			return null;
 	}

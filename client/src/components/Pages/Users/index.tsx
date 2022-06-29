@@ -8,7 +8,13 @@ import { Spinner, Modal, Icon, Input, Button, useModal } from '@app/components/S
 import styles from './Users.module.scss';
 
 export function Users(): JSX.Element {
-	const { users, loading, setCurrentUser, createUser, updateUser, deleteUser } = useUsersContext();
+	const {
+		usersData: { data: users, loading },
+		setCurrentUser,
+		createUser,
+		updateUser,
+		deleteUser
+	} = useUsersContext();
 	const { modalProps, openModal, closeModal } = useModal<{ user?: IUser }>();
 	const navigate = useNavigate();
 
