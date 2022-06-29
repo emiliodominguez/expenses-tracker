@@ -1,8 +1,7 @@
 import { useEffect, useCallback, useMemo } from 'react';
 
 /**
- * ### Sets and removes event listeners
- *
+ * Sets and removes event listeners
  * @param event A string which represents the event to listen
  * @param callback The callback function for the event listener
  * @param target Target element (window by default)

@@ -2,7 +2,7 @@ import { FormEvent, useState, ChangeEvent } from 'react';
 import { useUsersContext, useAccountsContext } from '@app/contexts';
 import { getCardBrand } from '@app/shared/helpers';
 import { ICard, TCardPayload } from '@app/models';
-import { Spinner, Modal, Input, Button, useModal, Icon, Card, TCardData } from '@app/components/Shared';
+import { Spinner, Modal, Input, Button, useModal, Icon, Card, TCardData, Select } from '@app/components/Shared';
 import styles from './Cards.module.scss';
 
 export function Cards(): JSX.Element {
@@ -114,15 +114,12 @@ export function Cards(): JSX.Element {
 
 						<Input name="bank" value={modalProps.card?.bank} placeholder="Set the card's bank" required />
 
-						<select name="type" defaultValue={modalProps.card?.type}>
-							<option hidden>Select the card type</option>
-
-							{['Debit', 'Credit'].map(type => (
-								<option key={type} value={type}>
-									{type}
-								</option>
-							))}
-						</select>
+						<Select
+							name="type"
+							defaultValue={modalProps.card?.type}
+							placeholder="Select the card type"
+							options={[{ label: 'Debit' }, { label: 'Credit' }]}
+						/>
 
 						<Input
 							type="date"

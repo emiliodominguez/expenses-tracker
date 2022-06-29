@@ -37,7 +37,7 @@
 	border-radius: variables.size(xs);
 	margin: auto;
 	background-color: var(--white);
-	box-shadow: variables.shadow(500);
+	box-shadow: variables.shadow(700), variables.shadow(700);
 	transition: background-color ease 250ms;
 	z-index: variables.z-index(basic);
 }

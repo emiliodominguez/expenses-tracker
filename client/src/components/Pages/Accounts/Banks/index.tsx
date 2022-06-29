@@ -1,6 +1,7 @@
 import { MouseEvent, FormEvent, useRef, useMemo, Fragment } from 'react';
 import { useUsersContext, useAccountsContext } from '@app/contexts';
 import { className } from '@app/shared/helpers';
+import { currencyFormatter } from '@app/shared/constants';
 import { IAccount, TAccountPayload } from '@app/models';
 import { Spinner, Modal, Input, Button, useModal, Checkbox, Icon } from '@app/components/Shared';
 import styles from './Banks.module.scss';
@@ -8,8 +9,6 @@ import styles from './Banks.module.scss';
 type TAccountsAccumulator = { [key: string]: IAccount[] };
 
 type TBalance = { [key: string]: any };
-
-const currencyFormatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
 
 export function Banks(): JSX.Element {
 	const { currentUser } = useUsersContext();

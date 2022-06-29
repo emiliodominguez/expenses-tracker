@@ -31,9 +31,11 @@ export default class CalendarService {
 		return this._localizedWeekDays;
 	}
 
-	constructor(locale?: string) {
-		this._locale = locale || window.navigator.language || 'en-us';
+	constructor(/** locale?: string */) {
+		// this._locale = locale || window.navigator.language || 'en-us';
+		this._locale = 'en-us';
 		this._today = new Date();
+		this._today.setHours(0, 0, 0, 0);
 		this._currentMonth = this._today.getMonth();
 		this._currentYear = this._today.getFullYear();
 		this._localizedMonths = this.getMonthsNames({ month: 'long' });

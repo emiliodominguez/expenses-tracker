@@ -1,0 +1,153 @@
+@use '@app/styles/variables';
+@use '@app/styles/shared';
+
+:global(.dark-theme) {
+	.monthDays {
+		.day {
+			background-color: var(--mono900);
+
+			&::after {
+				box-shadow: inset 0 0 50px rgba(#000, 0.5);
+			}
+
+			&.current {
+				.dayBadge {
+					background-color: var(--mono400);
+					color: var(--mono1000);
+				}
+			}
+
+			.movements {
+				button {
+					&:hover {
+						color: var(--mono300);
+					}
+				}
+			}
+		}
+	}
+}
+
+// .calendar {}
+
+.weekDays,
+.monthDays {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	grid-gap: variables.size(xs);
+	list-style: none;
+
+	.day {
+		padding: variables.size(m);
+		font-size: 12px;
+	}
+}
+
+.weekDays {
+	margin-bottom: variables.size(xs);
+
+	.day {
+		color: var(--mono600);
+	}
+}
+
+.monthDays {
+	grid-auto-rows: 150px;
+
+	.day {
+		position: relative;
+		display: flex;
+		justify-content: flex-end;
+		align-items: flex-end;
+		background-color: var(--mono200);
+		transition: background-color ease 250ms;
+		z-index: variables.z-index(basic);
+		cursor: pointer;
+
+		&::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			box-shadow: inset 0 0 50px rgba(#000, 0.15);
+			opacity: 0;
+			z-index: -1;
+			transition: opacity ease 500ms;
+		}
+
+		&:hover {
+			&::after {
+				opacity: 1;
+			}
+		}
+
+		&.current {
+			.dayBadge {
+				background-color: var(--primary);
+				color: var(--mono100);
+				transition: background-color ease 250ms, color ease 250ms;
+			}
+		}
+
+		.dayBadge {
+			$size: 30px;
+
+			position: absolute;
+			top: variables.size(xs);
+			left: variables.size(xs);
+			width: $size;
+			height: $size;
+			border-radius: 50%;
+
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.movements {
+			@include shared.custom-scrollbar;
+
+			position: relative;
+			width: 100%;
+			max-height: 100%;
+			font-size: 14px;
+			overflow-y: auto;
+			z-index: variables.z-index(basic);
+
+			button {
+				@extend %btn-reset;
+
+				display: block;
+				font-weight: variables.font-weight(semi-bold);
+				color: var(--mono600);
+				padding: variables.size(xs);
+				margin-left: auto;
+				transition: color ease 250ms;
+
+				&.income {
+					color: var(--positive);
+				}
+
+				&.expense {
+					color: var(--negative500);
+				}
+
+				&:hover {
+					color: var(--mono1000);
+				}
+
+				+ button {
+					margin-top: variables.size(xs);
+				}
+			}
+		}
+	}
+}
+
+:global(.form-modal) {
+	.deleteBtn {
+		margin-top: 0;
+	}
+}
