@@ -9,7 +9,7 @@ import { routes } from '@app/config';
 interface IUsersContext {
 	usersData: IRequestPayload<IUser>;
 	currentUser: IUser | null;
-	setCurrentUser: (user: IUser) => void;
+	setCurrentUser: (user: IUser | null) => void;
 	createUser: (payload: TUserPayload) => Promise<IUser>;
 	updateUser: (id: number, payload: TUserPayload) => Promise<IUser>;
 	deleteUser: (id: number) => Promise<IUser>;

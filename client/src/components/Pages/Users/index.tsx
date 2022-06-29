@@ -1,4 +1,4 @@
-import { FormEvent, MouseEvent } from 'react';
+import { FormEvent, MouseEvent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUsersContext } from '@app/contexts';
 import { routes } from '@app/config';
@@ -40,6 +40,11 @@ export function Users(): JSX.Element {
 
 		closeModal();
 	}
+
+	useEffect(() => {
+		setCurrentUser(null);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	return (
 		<Layout title="Users">
