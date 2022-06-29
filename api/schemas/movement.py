@@ -6,12 +6,11 @@ class MovementBase(BaseModel):
     type: str
     date: date
     amount: int
-    account: int
     currency: str
     note: str = ""
     user_id: int
-    category_id: int
     account_id: int
+    category_id: int = None
 
 
 class MovementSchema(MovementBase):
