@@ -12,8 +12,8 @@ class UserBase(BaseModel):
 
 class UserSchema(UserBase):
     id: int
-    accounts: List[AccountSchema]
-    cards: List[CardSchema]
+    accounts: List[AccountSchema] = []
+    cards: List[CardSchema] = []
 
     class Config:
         orm_mode = True
