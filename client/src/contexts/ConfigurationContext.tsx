@@ -50,7 +50,7 @@ export function ConfigurationContextProvider(props: PropsWithChildren<{}>): JSX.
 	}
 
 	function setThemeColors(primaryColor?: string, accentColor?: string): void {
-		setConfiguration(prev => ({ ...prev, primaryColor: primaryColor ?? prev.primaryColor, accentColor: accentColor ?? prev.primaryColor }));
+		setConfiguration(prev => ({ ...prev, primaryColor: primaryColor ?? prev.primaryColor, accentColor: accentColor ?? prev.accentColor }));
 	}
 
 	useEffect(() => {

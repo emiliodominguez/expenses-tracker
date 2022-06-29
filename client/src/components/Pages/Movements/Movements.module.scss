@@ -39,12 +39,29 @@ $hover-shadow-radius: 30px;
 	}
 }
 
+.dateSelection {
+	max-width: 500px;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-gap: variables.size(m);
+	margin: 0 auto;
+
+	@media #{variables.media-query(max, md)} {
+		grid-template-columns: repeat(2, 1fr);
+
+		button {
+			grid-column: 1 / -1;
+		}
+	}
+}
+
 .weekDays,
 .monthDays {
 	display: grid;
 	grid-template-columns: repeat(7, 1fr);
 	grid-gap: variables.size(xs);
 	list-style: none;
+	user-select: none;
 
 	.day {
 		padding: variables.size(m);

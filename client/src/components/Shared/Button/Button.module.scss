@@ -1,6 +1,16 @@
 @use '@app/styles/variables';
 @use '@app/styles/shared';
 
+:global(.dark-theme) {
+	.button {
+		&:disabled {
+			background-color: var(--mono700);
+			color: var(--mono800);
+			pointer-events: none;
+		}
+	}
+}
+
 .button {
 	@extend %btn-reset;
 
@@ -18,13 +28,7 @@
 	font-weight: variables.font-weight(semi-bold);
 	color: var(--white);
 	user-select: none;
-	transition: color ease 250ms, background-color ease 250ms;
-
-	&:disabled {
-		background-color: var(--mono400);
-		color: var(--mono200);
-		pointer-events: none;
-	}
+	transition: background-color ease 250ms, color ease 250ms;
 
 	&.primary {
 		background-color: var(--primary);
@@ -76,5 +80,11 @@
 		&:active {
 			background-color: var(--warning800);
 		}
+	}
+
+	&:disabled {
+		background-color: var(--mono400);
+		color: var(--mono500);
+		pointer-events: none;
 	}
 }

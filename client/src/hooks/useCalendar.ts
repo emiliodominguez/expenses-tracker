@@ -10,9 +10,10 @@ interface IUseCalendarPayload {
 	weekDays: string[];
 	monthDays: number;
 	monthFirstDay: number;
+	checkIfToday: (day: number) => boolean;
+	checkIfCurrentMonthAndYear: () => boolean;
+	restoreDate: () => void;
 	goToMonth: (month: number) => void;
-	goToNextMonth: () => void;
-	goToPreviousMonth: () => void;
 	goToYear: (year: number) => void;
 }
 
@@ -29,19 +30,15 @@ export function useCalendar(): IUseCalendarPayload {
 		setCurrentMonth(month);
 	}
 
-	function goToNextMonth(): void {
-		calendarService.goToNextMonth();
-		setCurrentMonth(calendarService.currentMonth);
-	}
-
-	function goToPreviousMonth(): void {
-		calendarService.goToPreviousMonth();
-		setCurrentMonth(calendarService.currentMonth);
-	}
-
 	function goToYear(year: number): void {
 		calendarService.goToYear(year);
 		setCurrentYear(year);
+	}
+
+	function restoreDate(): void {
+		calendarService.restoreDate();
+		setCurrentMonth(calendarService.currentMonth);
+		setCurrentYear(calendarService.currentYear);
 	}
 
 	return {
@@ -51,9 +48,10 @@ export function useCalendar(): IUseCalendarPayload {
 		weekDays: calendarService.localizedWeekDays,
 		monthDays: calendarService.getNumberOfDaysInAMonth(currentMonth, currentYear),
 		monthFirstDay: calendarService.getFirstDayOfAMonth(),
+		checkIfToday: day => calendarService.checkIfToday(day),
+		checkIfCurrentMonthAndYear: () => calendarService.checkIfCurrentMonthAndYear(),
+		restoreDate,
 		goToMonth,
-		goToNextMonth,
-		goToPreviousMonth,
 		goToYear
 	};
 }

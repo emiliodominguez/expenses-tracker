@@ -3,7 +3,7 @@ import { InputHTMLAttributes } from 'react';
 
 interface ISelectOption {
 	label: string;
-	value?: string;
+	value?: string | number;
 }
 
 interface ISelectProps extends InputHTMLAttributes<HTMLSelectElement> {
@@ -13,7 +13,7 @@ interface ISelectProps extends InputHTMLAttributes<HTMLSelectElement> {
 
 export function Select(props: ISelectProps): JSX.Element {
 	return (
-		<select name={props.name} defaultValue={props.defaultValue} onChange={props.onChange}>
+		<select name={props.name} defaultValue={props.defaultValue} value={props.value} onChange={props.onChange}>
 			<option hidden>{props.placeholder}</option>
 
 			{props.options.map((option, i) => (

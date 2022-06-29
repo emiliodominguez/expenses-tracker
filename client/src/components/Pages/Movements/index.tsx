@@ -13,6 +13,10 @@ enum MovementType {
 	Income = 'Income'
 }
 
+const minYear = 2022;
+const increaseYears = 50;
+const yearsSelect = Array.from({ length: new Date().getFullYear() - minYear + increaseYears + 1 }, (v, i) => i + minYear);
+
 export function Movements(): JSX.Element {
 	const { currentUser } = useUsersContext();
 	const { accounts } = useAccountsContext();
@@ -23,7 +27,7 @@ export function Movements(): JSX.Element {
 		deleteMovement
 	} = useMovementsContext();
 	const { modalProps, openModal, closeModal } = useModal<{ movement?: IMovement; editMode?: boolean }>();
-	const { currentMonth, currentYear, monthDays, weekDays, monthFirstDay } = useCalendar();
+	const calendar = useCalendar();
 	const [selectedCurrency, setSelectedCurrency] = useState<string | null>(null);
 
 	function handleFormSubmit(e: FormEvent): void {
@@ -47,8 +51,26 @@ export function Movements(): JSX.Element {
 
 			{!loading && (
 				<div className={styles.calendar}>
+					<div className={styles.dateSelection}>
+						<Select
+							value={calendar.currentMonth}
+							options={calendar.months.map((month, i) => ({ label: month, value: i }))}
+							onChange={e => calendar.goToMonth(+e.target.value)}
+						/>
+
+						<Select
+							value={calendar.currentYear}
+							options={yearsSelect.map(x => ({ label: x.toString() }))}
+							onChange={e => calendar.goToYear(+e.target.value)}
+						/>
+
+						<Button onClick={calendar.restoreDate} disabled={calendar.checkIfCurrentMonthAndYear()}>
+							Go to today
+						</Button>
+					</div>
+
 					<ul className={styles.weekDays}>
-						{weekDays.map(day => (
+						{calendar.weekDays.map(day => (
 							<li key={day} className={styles.day}>
 								{day}
 							</li>
@@ -56,18 +78,18 @@ export function Movements(): JSX.Element {
 					</ul>
 
 					<ul className={styles.monthDays}>
-						{[...Array(monthDays).keys()].map(day => {
+						{[...Array(calendar.monthDays).keys()].map(day => {
 							const realDay = day + 1;
 
 							return (
 								<li
 									key={day}
-									{...className(styles.day, { [styles.current]: realDay === new Date().getDate() })}
-									style={{ gridColumn: day === 0 ? monthFirstDay : undefined }}
+									{...className(styles.day, { [styles.current]: calendar.checkIfToday(realDay) })}
+									style={{ gridColumn: day === 0 ? calendar.monthFirstDay : undefined }}
 									onClick={() =>
 										openModal({
 											movement: {
-												date: new Date(currentYear, currentMonth + 1, realDay).toISOString().slice(0, 10)
+												date: new Date(calendar.currentYear, calendar.currentMonth + 1, realDay).toISOString().slice(0, 10)
 											} as IMovement
 										})
 									}>
@@ -75,13 +97,13 @@ export function Movements(): JSX.Element {
 									<div className={styles.movements}>
 										{movements.map(
 											movement =>
-												new Date(movement.date).getDate() === day && (
+												calendar.checkIfToday(realDay) && (
 													<button
+														key={movement.id}
 														onClick={e => {
 															e.stopPropagation();
 															openModal({ movement, editMode: true });
 														}}
-														key={movement.id}
 														{...className({
 															[styles.expense]: movement.type === MovementType.Expense,
 															[styles.income]: movement.type === MovementType.Income

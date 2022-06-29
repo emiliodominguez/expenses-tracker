@@ -45,10 +45,26 @@ export default class CalendarService {
 	/**
 	 * Checks if the current day is today
 	 * @param day - The day
-	 * @returns A boolean that determines if any given day is today
 	 */
 	checkIfToday(day: number): boolean {
 		return day === this._today.getDate() && this._currentMonth === this._today.getMonth() && this._currentYear === this._today.getFullYear();
+	}
+
+	/**
+	 * Checks if current month and year
+	 */
+	checkIfCurrentMonthAndYear(): boolean {
+		const currentMonth = this._today.getMonth();
+		const currentYear = this._today.getFullYear();
+		return this._currentMonth === currentMonth && this._currentYear === currentYear;
+	}
+
+	/**
+	 * Restores the date to the current values
+	 */
+	restoreDate(): void {
+		this._currentMonth = this._today.getMonth();
+		this._currentYear = this._today.getFullYear();
 	}
 
 	/**
