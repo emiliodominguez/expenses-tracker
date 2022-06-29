@@ -28,17 +28,6 @@
 	text-align: center;
 	margin-bottom: variables.size(xl);
 
-	&::after {
-		content: '';
-		display: block;
-		width: 100%;
-		max-width: 150px;
-		margin: variables.size(m) auto;
-		height: 1px;
-		background-color: var(--mono600);
-		transition: background-color ease 250ms;
-	}
-
 	a {
 		color: var(--mono600);
 		font-size: 14px;

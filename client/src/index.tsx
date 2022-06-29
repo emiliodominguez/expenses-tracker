@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider as IOCProvider } from 'inversify-react';
 import reportWebVitals from './reportWebVitals';
-import { UsersContextProvider, ConfigurationContextProvider, AccountsContextProvider } from './contexts';
+import { UsersContextProvider, ConfigurationContextProvider, AccountsContextProvider, MovementsContextProvider } from './contexts';
 import { container, routes } from './config';
 import './services';
 import './styles/main.scss';
@@ -32,7 +32,9 @@ root.render(
 			<UsersContextProvider>
 				<ConfigurationContextProvider>
 					<AccountsContextProvider>
-						<Routes>{Object.values(routes).map(renderRoute)}</Routes>
+						<MovementsContextProvider>
+							<Routes>{Object.values(routes).map(renderRoute)}</Routes>
+						</MovementsContextProvider>
 					</AccountsContextProvider>
 				</ConfigurationContextProvider>
 			</UsersContextProvider>

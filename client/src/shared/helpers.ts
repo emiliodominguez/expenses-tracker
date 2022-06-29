@@ -133,6 +133,16 @@ export function generateColorScale(colorHex: string, steps: number = 10): string
 }
 //#endregion
 
+//#region String helpers
+/**
+ * @param string - The string
+ * @returns A capitalized string
+ */
+export function capitalize(string: string): string {
+	return string.charAt(0).toUpperCase() + string.slice(1);
+}
+//#endregion
+
 //#region Math helpers
 /**
  * Clamps a number between min and max values

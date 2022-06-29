@@ -1,4 +1,4 @@
-import { Users, Accounts, Banks, Cards, Movements, Stats, Options } from '@app/components/Pages';
+import { Users, Accounts, Banks, Cards, Movements, Options } from '@app/components/Pages';
 
 export const routes = Object.freeze({
 	users: {
@@ -20,11 +20,11 @@ export const routes = Object.freeze({
 		label: 'Movements',
 		element: <Movements />
 	},
-	stats: {
-		url: '/stats',
-		label: 'Stats',
-		element: <Stats />
-	},
+	// stats: {
+	// 	url: '/stats',
+	// 	label: 'Stats',
+	// 	element: <Stats />
+	// },
 	options: {
 		url: '/options',
 		label: 'Options',
