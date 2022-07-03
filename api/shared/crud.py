@@ -46,10 +46,10 @@ def get_one_by_id(model: Model, entity_id: int) -> Union[Schema, None]:
     Returns:
         Union[Schema, None]: The record
     """
-    element = session.query(model).get(entity_id)
+    element = session.query(model).filter(model.id == entity_id).first()
 
     if not element:
-        raise HTTPException(f"Entity with ID: {id} was not found")
+        raise HTTPException(f"Entity with ID: {entity_id} was not found")
 
     return element
 
@@ -89,7 +89,7 @@ def edit(model: Model, entity_id: int, payload: ModelPayload) -> Schema:
     Returns:
         Schema: The edited record
     """
-    element = session.query(model).get(entity_id)
+    element = session.query(model).filter(model.id == entity_id).first()
 
     if not element:
         raise HTTPException(f"Entity with ID: {entity_id} was not found")
@@ -115,7 +115,9 @@ def delete(model: Model, entity_id: int) -> Schema:
     Returns:
         Schema: The deleted record
     """
-    element = session.query(model).get(entity_id)
+    element = session.query(model).filter(model.id == entity_id).first()
+
+    print(element)
 
     if not element:
         raise HTTPException(f"Entity with ID: {entity_id} was not found")
