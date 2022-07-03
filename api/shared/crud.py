@@ -117,8 +117,6 @@ def delete(model: Model, entity_id: int) -> Schema:
     """
     element = session.query(model).filter(model.id == entity_id).first()
 
-    print(element)
-
     if not element:
         raise HTTPException(f"Entity with ID: {entity_id} was not found")
 
