@@ -6,6 +6,11 @@ export const routes = Object.freeze({
 		label: 'Users',
 		element: <Users />
 	},
+	movements: {
+		url: '/movements',
+		label: 'Movements',
+		element: <Movements />
+	},
 	accounts: {
 		url: '/accounts',
 		label: 'Accounts',
@@ -14,11 +19,6 @@ export const routes = Object.freeze({
 			{ url: 'banks', label: 'Banks', element: <Banks /> },
 			{ url: 'cards', label: 'Cards', element: <Cards /> }
 		]
-	},
-	movements: {
-		url: '/movements',
-		label: 'Movements',
-		element: <Movements />
 	},
 	// stats: {
 	// 	url: '/stats',

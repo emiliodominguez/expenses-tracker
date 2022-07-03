@@ -2,26 +2,41 @@ import { MouseEvent, FormEvent, useRef, useMemo, Fragment } from 'react';
 import { useUsersContext, useAccountsContext } from '@app/contexts';
 import { className } from '@app/shared/helpers';
 import { currencyFormatter } from '@app/shared/constants';
-import { IAccount, TAccountPayload } from '@app/models';
+import { useMovementsContext } from '@app/contexts';
+import { IAccount, MovementType, TAccountPayload } from '@app/models';
 import { Modal, Input, Button, useModal, Checkbox, Icon } from '@app/components/Shared';
 import styles from './Banks.module.scss';
 
 type TAccountsAccumulator = { [key: string]: IAccount[] };
 
-type TBalance = { [key: string]: any };
+// type TBalance = { [key: string]: any };
 
 export function Banks(): JSX.Element {
 	const { currentUser } = useUsersContext();
+	const { movementsData } = useMovementsContext();
 	const { accounts, createAccount, updateAccount, deleteAccount } = useAccountsContext();
 	const { modalProps, openModal, closeModal } = useModal<{ account?: IAccount }>();
 	const activeInputRef = useRef<HTMLInputElement>(null);
-	const accountsBalance = useMemo(getAccountsBalance, [accounts]);
 	const accountsMemo = useMemo(sectionAccounts, [accounts]);
+	// const accountsBalance = useMemo(getAccountsBalance, [accounts]);
 
-	function getAccountsBalance(): TBalance {
-		return accounts.reduce((acc: TBalance, account) => {
+	// function getAccountsBalance(): TBalance {
+	// 	return accounts.reduce((acc: TBalance, account) => {
+	// 		return acc;
+	// 	}, {});
+	// }
+
+	function getAccountBalance(account: IAccount): number {
+		const { data } = movementsData;
+		const accountMovementsBalance = data.reduce((acc, movement) => {
+			if (movement.account_id === account.id) {
+				acc += movement.amount * (movement.type === MovementType.Expense ? -1 : 1);
+			}
+
 			return acc;
-		}, {});
+		}, 0);
+
+		return account.balance + accountMovementsBalance;
 	}
 
 	function sectionAccounts(): TAccountsAccumulator {
@@ -85,8 +100,12 @@ export function Banks(): JSX.Element {
 								<li key={account.id} className={styles.account}>
 									<div className={styles.accountDetail}>
 										<p className={styles.accountName}>{account.name}</p>
-										<span {...className(styles.accountBalance, { [styles.active]: account.active })}>
-											{currencyFormatter.format(account.balance)}
+										<span
+											{...className(styles.accountBalance, {
+												[styles.active]: account.active,
+												[styles.negative]: getAccountBalance(account) < 0
+											})}>
+											{currencyFormatter.format(getAccountBalance(account))}
 										</span>
 									</div>
 

@@ -58,6 +58,10 @@
 			&.active {
 				color: var(--positive);
 			}
+
+			&.negative {
+				color: var(--negative);
+			}
 		}
 	}
 

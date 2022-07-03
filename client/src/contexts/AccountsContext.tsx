@@ -29,6 +29,7 @@ export function AccountsContextProvider(props: PropsWithChildren<{}>): JSX.Eleme
 	//#region Accounts
 	async function getAccounts(): Promise<void> {
 		if (!currentUser) return;
+
 		const data = await accountsService.get(currentUser.id);
 		if (data) setAccounts(data);
 	}

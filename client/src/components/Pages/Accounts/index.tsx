@@ -1,8 +1,8 @@
+import { useEffect } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { routes } from '@app/config';
 import Layout from '@app/components/Layout';
 import styles from './Accounts.module.scss';
-import { routes } from '@app/config';
-import { useEffect } from 'react';
 
 export function Accounts(): JSX.Element {
 	const navigate = useNavigate();

@@ -18,7 +18,12 @@ export function Users(): JSX.Element {
 	const { modalProps, openModal, closeModal } = useModal<{ user?: IUser }>();
 	const navigate = useNavigate();
 
-	function handleAccountAction(type: 'edit' | 'delete', user: IUser): (e: MouseEvent<HTMLButtonElement>) => void {
+	function selectUser(user: IUser): void {
+		setCurrentUser(user);
+		navigate(routes.movements.url);
+	}
+
+	function handleUserAction(type: 'edit' | 'delete', user: IUser): (e: MouseEvent<HTMLButtonElement>) => void {
 		return e => {
 			e.stopPropagation();
 			if (type === 'edit') openModal({ user });
@@ -55,21 +60,15 @@ export function Users(): JSX.Element {
 			{!loading && users && (
 				<ul className={styles.users}>
 					{users.map(user => (
-						<li
-							key={user.name}
-							className={styles.user}
-							onClick={() => {
-								setCurrentUser(user);
-								navigate(routes.accounts.url);
-							}}>
+						<li key={user.name} className={styles.user} onClick={() => selectUser(user)}>
 							<p className={styles.initials} data-initials={user.name[0]} />
 							<p className={styles.name}>{user.name}</p>
 							<div className={styles.userActions}>
-								<button title="Edit user" onClick={handleAccountAction('edit', user)}>
+								<button title="Edit user" onClick={handleUserAction('edit', user)}>
 									<Icon name="pencil" size={16} />
 								</button>
 
-								<button title="Delete user" onClick={handleAccountAction('delete', user)}>
+								<button title="Delete user" onClick={handleUserAction('delete', user)}>
 									<Icon name="trashCan" size={16} />
 								</button>
 							</div>

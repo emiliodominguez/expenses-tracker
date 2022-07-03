@@ -5,13 +5,8 @@ import { currencyFormatter } from '@app/shared/constants';
 import { Spinner, Button, useModal, Modal, Icon, Input, Select } from '@app/components/Shared';
 import { useAccountsContext, useMovementsContext, useUsersContext } from '@app/contexts';
 import { useCalendar } from '@app/hooks';
-import { IMovement, TMovementPayload } from '@app/models';
+import { IMovement, MovementType, TMovementPayload } from '@app/models';
 import styles from './Movements.module.scss';
-
-enum MovementType {
-	Expense = 'Expense',
-	Income = 'Income'
-}
 
 const minYear = 2022;
 const increaseYears = 50;

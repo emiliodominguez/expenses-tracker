@@ -11,4 +11,9 @@ export interface IMovement {
 	category_id?: number;
 }
 
+export enum MovementType {
+	Expense = 'Expense',
+	Income = 'Income'
+}
+
 export type TMovementPayload = Omit<IMovement, 'id'>;
