@@ -16,11 +16,14 @@ export function Select(props: ISelectProps): JSX.Element {
 		<select name={props.name} defaultValue={props.defaultValue} value={props.value} onChange={props.onChange}>
 			<option hidden>{props.placeholder}</option>
 
-			{props.options.map((option, i) => (
-				<option key={`${props.name}_${option.label}_${i}`} value={option.value ?? option.label}>
-					{option.label}
-				</option>
-			))}
+			{props.options.length === 0 && <option disabled>No elements to list</option>}
+
+			{props.options.length > 0 &&
+				props.options.map((option, i) => (
+					<option key={`${props.name}_${option.label}_${i}`} value={option.value ?? option.label}>
+						{option.label}
+					</option>
+				))}
 		</select>
 	);
 }
