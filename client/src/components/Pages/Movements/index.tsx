@@ -10,7 +10,7 @@ import styles from './Movements.module.scss';
 
 const minYear = 2022;
 const increaseYears = 50;
-const yearsSelect = Array.from({ length: new Date().getFullYear() - minYear + increaseYears + 1 }, (v, i) => i + minYear);
+const yearsSelect = Array.from({ length: new Date().getFullYear() - minYear + increaseYears + 1 }, (_year, i) => i + minYear);
 
 export function Movements(): JSX.Element {
 	const { currentUser } = useUsersContext();
@@ -24,6 +24,12 @@ export function Movements(): JSX.Element {
 	const { modalProps, openModal, closeModal } = useModal<{ movement?: IMovement; editMode?: boolean }>();
 	const calendar = useCalendar();
 	const [selectedCurrency, setSelectedCurrency] = useState<string | null>(null);
+
+	function renderMovementByDate(movement: IMovement, day: number): boolean {
+		const movementDate = new Date(movement.date);
+		const { currentMonth, currentYear } = calendar;
+		return movementDate.getDate() === day && movementDate.getMonth() === currentMonth && movementDate.getFullYear() === currentYear;
+	}
 
 	function handleFormSubmit(e: FormEvent): void {
 		e.preventDefault();
@@ -84,15 +90,16 @@ export function Movements(): JSX.Element {
 									onClick={() =>
 										openModal({
 											movement: {
-												date: new Date(calendar.currentYear, calendar.currentMonth + 1, realDay).toISOString().slice(0, 10)
+												date: new Date(calendar.currentYear, calendar.currentMonth, realDay).toISOString().slice(0, 10)
 											} as IMovement
 										})
 									}>
 									<span className={styles.dayBadge}>{realDay}</span>
+
 									<div className={styles.movements}>
 										{movements.map(
 											movement =>
-												calendar.checkIfToday(realDay) && (
+												renderMovementByDate(movement, day) && (
 													<button
 														key={movement.id}
 														onClick={e => {
